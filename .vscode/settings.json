@@ -1,0 +1,71 @@
+{
+  // prettier
+  "prettier.disableLanguages": ["vue"],
+  // "prettier.disableLanguages": [],
+  "prettier.ignorePath": ".prettierignore",
+  // 是否启用项目的.prettierrc文件作为默认格式化文件
+  "prettier.requireConfig": false,
+  "prettier.stylelintIntegration": false,
+  // 适用集成eslint
+  "prettier.eslintIntegration": true,
+  // vetur
+  "vetur.validation.template": true,
+  // html格式化
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  // html css support
+  "css.fileExtensions": ["css", "scss"],
+  "editor.tabSize": 2,
+  // 保存自动格式化
+  "editor.formatOnSave": true,
+  // eslint开启
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "eslint.autoFixOnSave": true,
+  "eslint.options": {
+    // List of file extensions to activate eslint
+    "extensions": [".html", ".js", ".vue", ".jsx"]
+  },
+  // 自动在vscode顶部显示文件路径
+  "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
+  // 搜索排除
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true
+  },
+  // 会导致cpu内存占有率过高
+  "search.followSymlinks": false,
+  // 自动fetch远程分支
+  "git.autofetch": true,
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "arrowParens": "always",
+      "bracketSpacing": true,
+      "printWidth": 200,
+      "proseWrap": "preserve",
+      "semi": false,
+      "singleQuote": true,
+      "tabWidth": 2,
+      "trailingComma": "none",
+      "useTabs": false
+    },
+    "prettyhtml": {
+      "printWidth": 200,
+      "singleQuote": false,
+      "wrapAttributes": false,
+      "sortAttributes": false
+    }
+  },
+  "vetur.format.defaultFormatter.js": "none"
+}

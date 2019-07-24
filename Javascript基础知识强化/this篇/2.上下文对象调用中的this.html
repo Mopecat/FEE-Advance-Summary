@@ -1,0 +1,95 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>上下文对象调用中的this</title>
+    <style>
+      h1 {
+        color: red;
+        padding-left: 20px;
+      }
+      p {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #666666;
+        color: #ffffff;
+        border-radius: 10px;
+      }
+      .sub-anwser {
+        color: #ffffff;
+        border-radius: 10px;
+        background: #1a74e9;
+        padding: 5px 0 5px 80px;
+      }
+      .sub-anwser li {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>注意了哈</h1>
+    <p>
+      在执行函数时，如果函数中的 this 是被上一级的对象所调用，那么 this
+      指向的就是上一级的对象；否则指向全局环境。
+    </p>
+    <p>重要的结论：this 指向最后调用它的对象</p>
+    <script>
+      /**
+       * 例1
+       */
+      const student = {
+        name: "Lucas",
+        fn: function() {
+          return this;
+        }
+      };
+      console.log(student.fn() === student); // true
+      /**
+       * 例2
+       * this 指向最后调用它的对象，因此输出将会是：Mike
+       */
+      const person = {
+        name: "Lucas",
+        brother: {
+          name: "Mike",
+          fn: function() {
+            return this.name;
+          }
+        }
+      };
+      console.log(person.brother.fn()); // Mike
+
+      /**
+       * 例3
+       * 第一个 console 最简单，o1 没有问题。难点在第二个和第三个上面，关键还是看调用 this 的那个函数。
+       * 第二个 console 的 o2.fn()，最终还是调用 o1.fn()，因此答案仍然是 o1。
+       * 最后一个，在进行 var fn = o1.fn 赋值之后，这里的 this 指向 window，答案当然是 undefined。
+       */
+      const o1 = {
+        text: "o1",
+        fn: function() {
+          return this.text;
+        }
+      };
+      const o2 = {
+        text: "o2",
+        fn: function() {
+          return o1.fn();
+        }
+      };
+      const o3 = {
+        text: "o3",
+        fn: function() {
+          var fn = o1.fn;
+          return fn();
+        }
+      };
+
+      console.log(o1.fn());
+      // o2.fn = o1.fn  // 添加这句后可以让o2.fn正常输出o2 或者可使用bind/call/apply
+      console.log(o2.fn());
+      console.log(o3.fn());
+    </script>
+  </body>
+</html>

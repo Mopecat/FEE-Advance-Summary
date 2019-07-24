@@ -1,0 +1,164 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>this 优先级相关</title>
+    <style>
+      h1 {
+        color: red;
+        padding-left: 20px;
+      }
+      p {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #666666;
+        color: #ffffff;
+        border-radius: 10px;
+      }
+      .sub-anwser {
+        color: #ffffff;
+        border-radius: 10px;
+        background: #1a74e9;
+        padding: 5px 0 5px 80px;
+      }
+      .sub-anwser li {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>注意了哈</h1>
+    <p>
+      在执行函数时，如果函数中的 this 是被上一级的对象所调用，那么 this
+      指向的就是上一级的对象；否则指向全局环境。
+    </p>
+    <p>重要的结论：this 指向最后调用它的对象</p>
+    <p>
+      bind/call/apply 三个方法的区别:
+    </p>
+    <ul class="sub-anwser">
+      <li>
+        他们都是用来改变相关函数 this 指向的，但是 call/apply
+        是直接进行相关函数调用；bind
+        不会执行相关函数，而是返回一个新的函数，这个新的函数已经自动绑定了新的
+        this 指向，开发者需要手动调用即可。再具体的 call/apply
+        之间的区别主要体现在参数设定上
+      </li>
+    </ul>
+    <p>new 操作符调用构造函数，具体做了什么:</p>
+    <ul class="sub-anwser">
+      <li>
+        创建一个新的对象；
+      </li>
+      <li>
+        将构造函数的 this 指向这个新对象
+      </li>
+      <li>
+        为这个对象添加属性、方法等；
+      </li>
+      <li>
+        最终返回新对象
+      </li>
+      <li>
+        以上过程可用代码简单概括一下
+        <pre>
+var obj  = {}
+obj.__proto__ = Foo.prototype
+Foo.call(obj)
+        </pre>
+      </li>
+    </ul>
+    <p>
+      结论：如果构造函数中显式返回一个值，且返回的是一个对象，那么 this
+      就指向这个返回的对象；如果返回的不是一个对象，那么 this 仍然指向实例。
+    </p>
+    <p>
+      我们常常把通过 call、apply、bind、new 对 this
+      绑定的情况称为显式绑定；根据调用关系确定的 this 指向称为隐式绑定。
+    </p>
+    <p>箭头函数的绑定的this无法被修改</p>
+    <p>
+      new 绑定的优先级比显式 bind 绑定更高。
+    </p>
+    <p>const、let声明的变量不会被挂载到window上</p>
+    <script>
+      /**
+       * 例1
+       * call、apply、bind、new 对 this 绑定的情况称为显式绑定；根据调用关系确定的 this 指向称为隐式绑定。
+       * 下面例子证明显示绑定 高于 隐式绑定
+       */
+      function foo(a) {
+        console.log(this.a);
+      }
+
+      const obj1 = {
+        a: 1,
+        foo: foo
+      };
+
+      const obj2 = {
+        a: 2,
+        foo: foo
+      };
+
+      obj1.foo.call(obj2); // 2
+      obj2.foo.call(obj1); // 1
+
+      /**
+       * 例2
+       */
+      function foo2(a) {
+        this.a = a;
+      }
+
+      const obj3 = {};
+
+      var bar = foo2.bind(obj3);
+      bar(2);
+      console.log(obj3.a); // 2
+      var baz = new bar(3);
+      console.log(baz.a); // 3   new 绑定修改了 bind 绑定中的 this，因此 new 绑定的优先级比显式 bind 绑定更高。
+
+      /**
+       * 例3
+       * 将会输出 2。由于 foo() 的 this 绑定到 obj1，bar（引用箭头函数）的 this 也会绑定到 obj1，箭头函数的绑定无法被修改。
+       */
+      function foo3() {
+        return a => {
+          console.log(this.a);
+        };
+      }
+
+      const obj4 = {
+        a: 2
+      };
+
+      const obj5 = {
+        a: 3
+      };
+
+      const bar3 = foo.call(obj4);
+      console.log(bar3.call(obj5)); // 2
+
+      /**
+       * 例4
+       */
+      var a = 123; // 若将var 修改为const 则下面将会输出undefined，因为const、let 声明的变量不会被挂载到window上
+      const foo4 = () => a => {
+        console.log(this.a);
+      };
+
+      const obj6 = {
+        a: 2
+      };
+
+      const obj7 = {
+        a: 3
+      };
+
+      var bar4 = foo4.call(obj6);
+      console.log(bar4.call(obj7)); // 123 this指向window
+    </script>
+  </body>
+</html>
