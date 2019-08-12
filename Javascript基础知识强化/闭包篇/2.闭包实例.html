@@ -1,0 +1,144 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>基础实例</title>
+    <style>
+      h1 {
+        color: red;
+        padding-left: 20px;
+      }
+      p {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #666666;
+        color: #ffffff;
+        border-radius: 10px;
+      }
+      .sub-anwser {
+        color: #ffffff;
+        border-radius: 10px;
+        background: #1a74e9;
+        padding: 5px 0 5px 80px;
+      }
+      .sub-anwser li {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>注意了哈</h1>
+    <p>
+      函数嵌套函数时，内层函数引用了外层函数作用域下的变量，并且内层函数在全局环境下可访问，就形成了闭包。
+    </p>
+    <p>
+      单例模式，是一种常用的软件设计模式。GoF
+      在《设计模式：可复用面向对象软件的基础》一书中给出了如下定义:
+      保证一个类只有一个实例，并提供一个访问它的全局访问点。
+    </p>
+    <script>
+      /**
+       * desc 实例1
+       */
+      const foo1 = (function() {
+        var v = 0;
+        return () => {
+          return v++;
+        };
+      })();
+
+      for (let i = 0; i < 10; i++) {
+        foo1();
+      }
+
+      console.log(foo1());
+      // 解析：在循环执行时，执行 foo()，这样引用自由变量 10 次，v 自增 10 次，最后执行 foo 时，得到 10。（自由变量是指没有在相关函数作用域中声明，但是使用了的变量。）
+
+      /**
+       * desc 实例2
+       */
+      const foo2 = () => {
+        var arr = [];
+        var i;
+
+        for (i = 0; i < 10; i++) {
+          arr[i] = function() {
+            console.log(i);
+          };
+        }
+
+        return arr[0];
+      };
+
+      foo2()();
+      // 解析： 自由变量是i ，i在此时的值为10
+
+      /**
+       * desc 实例3
+       */
+      var fn3 = null;
+      const foo3 = () => {
+        var a = 2;
+        function innerFoo() {
+          console.log(a);
+        }
+        fn3 = innerFoo;
+      };
+
+      const bar3 = () => {
+        fn3();
+      };
+
+      foo3();
+      bar3();
+      // 解析：正常来讲，根据调用栈的知识，foo 函数执行完毕之后，其执行环境生命周期会结束，所占内存被垃圾收集器释放，上下文消失。
+      // 但是通过 innerFoo 函数赋值给 fn，fn 是全局变量，这就导致了 foo 的变量对象 a 也被保留了下来。
+      // 所以函数 fn 在函数 bar 内部执行时，依然可以访问这个被保留下来的变量对象，输出结果为 2。
+
+      /**
+       * desc 实例4
+       */
+      var fn4 = null;
+      const foo4 = () => {
+        var a = 2;
+        function innerFoo() {
+          console.log(c);
+          console.log(a);
+        }
+        fn4 = innerFoo;
+      };
+
+      const bar4 = () => {
+        var c = 100;
+        fn4();
+      };
+
+      foo4();
+      bar4();
+      // 在 bar 中执行 fn() 时，fn() 已经被复制为 innerFoo，变量 c 并不在其作用域链上，c 只是 bar 函数的内部变量。因此报错 ReferenceError: c is not defined
+
+      /**
+       * 如何利用闭包实现单例模式???
+       */
+      function Person() {
+        this.name = "lucas";
+      }
+
+      const getSingleInstance = (function() {
+        var singleInstance;
+        return function() {
+          if (singleInstance) {
+            return singleInstance;
+          }
+          return (singleInstance = new Person());
+        };
+      })();
+
+      const instance1 = new getSingleInstance();
+      const instance2 = new getSingleInstance();
+
+      // 事实上，我们有 instance1 === instance2。因为借助闭包变量 singleInstance，instance1 和 instance2 是同一引用的（singleInstance），这正是单例模式的体现。
+    </script>
+  </body>
+</html>
