@@ -68,7 +68,7 @@ e.on(() => {
 });
 fs.readFile("name.txt", "utf8", (err, data) => {
   infoOnEmit["name"] = data;
-  e.emit();
+  e.emit(); //  发布
 });
 fs.readFile("age.txt", "utf8", (err, data) => {
   infoOnEmit["age"] = data;
