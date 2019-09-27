@@ -17,23 +17,43 @@ fs.readFile("name1.txt", "utf8", function(err, data) {
  * 2）如果返回的是一个promise 那么这个promise会执行，并且采用他的状态
  */
 
-function readFile(...args) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(...args, function(err, data) {
-      if (err) reject(err);
-      resolve(data);
-    });
-  });
-}
-readFile("name1.txt", "utf8")
-  .then(data => {
-    return readFile(data, "utf8");
-  })
-  .then(
-    data => {
-      console.log(data);
-    },
-    err => {
-      console.log(err);
-    }
-  );
+// function readFile(...args) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(...args, function(err, data) {
+//       if (err) reject(err);
+//       resolve(data);
+//     });
+//   });
+// }
+// readFile("name1.txt", "utf8")
+//   .then(data => {
+//     return readFile(data, "utf8");
+//   })
+//   .then(
+//     data => {
+//       console.log(data);
+//     },
+//     err => {
+//       console.log(err);
+//     }
+//   );
+const Promise = require("./promise的链式调用实现");
+// 验证promise2 不能和 x是一个对象的例子
+let p = new Promise((resolve, reject) => {
+  resolve("hello");
+});
+// promise2
+let promise2 = p.then(
+  data => {
+    return { aa: 11 }; // x
+  },
+  err => {
+    console.log(err);
+  }
+);
+promise2.then(
+  data => {
+    console.log(data);
+  },
+  err => console.log(err)
+);
