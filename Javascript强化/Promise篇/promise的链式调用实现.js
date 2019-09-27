@@ -15,6 +15,7 @@ const resolvePromise = (promise2, x, resolve, reject) => {
   // 判断x是不是一个普通值 先认为他是一个promise
   if ((typeof x === "object" && x !== null) || typeof x === "function") {
     // typeof null === 'object'
+    let called; // 默认情况下没有成功或者失败
     try {
       let then = x.then; // 先判断x里面是不是有then 如果有错误就抛出错误
       if (typeof then === "function") {
@@ -23,19 +24,30 @@ const resolvePromise = (promise2, x, resolve, reject) => {
         then.call(
           x,
           y => {
-            resolve(y);
+            if (called) return; // 防止多次调用
+            called = true;
+            // y有可能还是一个promise 所以递归解析 直到可以解析为一个普通值了
+            resolvePromise(promise2, y, resolve, reject);
           },
           r => {
+            if (called) return; // 防止多次调用
+            called = true;
             reject(r);
           }
         );
       } else {
-        // 这里就是普通值
+        // 这里就是普通值 是个对象 没有成功或者失败 所以不用改变called的值
         resolve(x);
       }
     } catch (e) {
+      if (called) return; // 防止多次调用
+      called = true;
+      console.log("asdasd", e);
       reject(e); // 就抛出错误
     }
+  } else {
+    // 不是promise
+    resolve(x);
   }
 };
 class Promise {
@@ -46,6 +58,11 @@ class Promise {
     this.onResolvedCallbacks = [];
     this.onRejectedCallbacks = [];
     let resolve = value => {
+      // 如果new Promise里的resolve直接返回一个新的promise时 递归调用resolve直到返回一个普通值
+      if (value instanceof Promise) {
+        return value.then(resolve, reject);
+      }
+      // 只有是PENDING状态的时候才能改变状态
       if (this.status === PENDING) {
         this.value = value;
         this.status = FULFILLED;
@@ -68,6 +85,13 @@ class Promise {
     }
   }
   then(onFulfilled, onRejected) {
+    onFulfilled = typeof onFulfilled === "function" ? onFulfilled : val => val;
+    onRejected =
+      typeof onRejected === "function"
+        ? onRejected
+        : err => {
+            throw err;
+          };
     // then方法调用后应该返回一个新的promise
     let promise2 = new Promise((resolve, reject) => {
       // 应该在返回的promise中取到上一个promise的状态，来决定promise2走resolve还是reject
@@ -120,5 +144,15 @@ class Promise {
     return promise2;
   }
 }
+
+// 测试promise是否符合a+规范 全局安装 promises-aplus-tests包 执行 promises-aplus-tests 文件名
+Promise.deferred = function() {
+  let dfd = {};
+  dfd.promise = new Promise((resolve, reject) => {
+    dfd.resolve = resolve;
+    dfd.reject = reject;
+  });
+  return dfd;
+};
 // 导出当前类 commonjs定义的方式
 module.exports = Promise;
