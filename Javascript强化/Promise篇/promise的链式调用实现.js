@@ -42,7 +42,6 @@ const resolvePromise = (promise2, x, resolve, reject) => {
     } catch (e) {
       if (called) return; // 防止多次调用
       called = true;
-      console.log("asdasd", e);
       reject(e); // 就抛出错误
     }
   } else {
