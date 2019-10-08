@@ -120,6 +120,19 @@ class Promise {
     });
     return promise2;
   }
+  catch(errCallback) {
+    return this.then(null, errCallback);
+  }
+  static resolve(value) {
+    return new Promise((resolve, reject) => {
+      resolve(value);
+    });
+  }
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason);
+    });
+  }
 }
 
 Promise.deferred = function() {

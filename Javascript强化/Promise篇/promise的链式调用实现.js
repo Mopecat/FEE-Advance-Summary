@@ -142,6 +142,23 @@ class Promise {
     });
     return promise2;
   }
+  // catch就是then的语法糖
+  catch(errCallback) {
+    return this.then(null, errCallback);
+  }
+  // 静态方法 可以直接被 Promise.resolve()这种方式调用
+  // 静态方法 是可以被类直接调用 不可以被示例调用，可以继承
+  static resolve(value) {
+    return new Promise((resolve, reject) => {
+      resolve(value);
+    });
+  }
+  // 静态方法 可以直接被 Promise.reject()这种方式调用
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason);
+    });
+  }
 }
 
 // 测试promise是否符合a+规范 全局安装 promises-aplus-tests包 执行 promises-aplus-tests 文件名
