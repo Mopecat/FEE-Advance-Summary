@@ -1,9 +1,9 @@
+// 被观察者
 class Subject {
   constructor() {
     this.arr = [];
     this.state = "我不饿";
   }
-  // 被观察者
   attach(o) {
     this.arr.push(o);
   }
@@ -13,8 +13,8 @@ class Subject {
   }
 }
 
+// 观察者
 class Observer {
-  // 观察者
   constructor(name) {
     this.name = name;
   }
@@ -28,4 +28,4 @@ let o2 = new Observer("Sean");
 let s = new Subject("九儿");
 s.attach(o1);
 s.attach(o2);
-s.setState("我又饿了");
+s.setState("又饿了");
