@@ -21,10 +21,15 @@
 - 4. 返回一个新的 `promise` 来实现链式调用
 
 [promise 基础用法实例][1]
+
 [promise 基本实现源码][2]
+
 [promise 链式调用用法实例][3]
+
 [promise 链式调用实现][4]
+
 [promise/A+验证通过的源码][5]
+
 [promise.all 的实现][5]
 
 [1]: https://github.com/Mopecat/FEE-Advance-Summary/blob/master/Javascript%E5%BC%BA%E5%8C%96/Promise%E7%AF%87/%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95.js
