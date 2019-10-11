@@ -87,36 +87,48 @@ Foo.call(obj)
     </p>
     <script>
       Function.prototype.bind =
-        Function.prototype.bind || //兼容一下
+        // Function.prototype.bind || //兼容一下
         function(context) {
           var me = this;
+          // 从Mdn上得知 调用bind的必须是一个函数 所以
+          if (typeof me !== "function") {
+            throw new TypeError("调用bind的必须是一个function呦");
+          }
           var args = Array.prototype.slice.call(arguments, 1); // test.bind时传入的参数
-          var F = function() {};
-          F.prototype = this.prototype;
+          var F = function() {}; // 作为一个中转的构造函数 这么做的原因是 可以让bind后的新方法上也有调用函数（test）原型上的方法
+          F.prototype = this.prototype; // 让中转的构造函数的原型 与 this 的原型相同
           var bound = function() {
             var innerArgs = Array.prototype.slice.call(arguments); // 下文中test(666)调用时传入的参数
             var finalArgs = args.concat(innerArgs);
             /**
              *  instanceof 是通过循环左侧元素及原型链上各个类的__proto__是否等于右侧元素的prototype，来判断左侧元素是否是右侧元素的子类型
              */
+
             return me.apply(
+              // 因为下面赋值了 bound.prototype 是 F的实例，所以如果new 了 bound,this指向的是bound(test3)不再是调用的函数（test） 所以下面可以用this instanceof F来判断是否new过bound
               this instanceof F ? this : context || this, // 判断返回的bound有没有被new,如果有返回this指向bound如果没有this指向context
+              context,
               finalArgs
             );
           };
+
           bound.prototype = new F();
           return bound;
         };
       const test = function(aa, bb, cc) {
         console.log("函数内", arguments, this.aa);
       };
+      test.prototype.mimimama = () => {
+        console.log("咪咪咪嘛嘛嘛嘛");
+      };
       const test1 = {
         aa: 111,
         bbb: 222
       };
       const test2 = test.bind(test1, 333, 444, 555);
-      test2(666);
-      // const test3 = new test2(666);
+      // test2(666);
+      const test3 = new test2(666);
+      console.log(test3);
     </script>
   </body>
 </html>
