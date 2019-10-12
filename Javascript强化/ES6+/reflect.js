@@ -44,46 +44,28 @@ const fn = function(a, b) {
 };
 // apply 支持多个参数传参
 fn.apply(1, [2, 3]); // this:1 , a:2 , b:3
-// call 参数要一个一个传
+// call 参数要一个一个传 并直接执行函数
 fn.call(1, 2, 3);
 // bind产生一个新的函数 剩下的参数也要一个一个传（bind函数可以用函数柯里化写出来）
 let fn2 = fn.bind(1, 2, 3);
-// console.log(fn instanceof new fn2());
-// fn2();
 
-Function.prototype.bind =
-  // Function.prototype.bind || //兼容一下
-  function(context) {
-    var me = this;
-    var args = Array.prototype.slice.call(arguments, 1); // test.bind时传入的参数
-    var F = function() {};
-    F.prototype = this.prototype;
-    var bound = function() {
-      var innerArgs = Array.prototype.slice.call(arguments); // 下文中test(666)调用时传入的参数
-      var finalArgs = args.concat(innerArgs);
-      /**
-       *  instanceof 是通过循环左侧元素及原型链上各个类的__proto__是否等于右侧元素的prototype，来判断左侧元素是否是右侧元素的子类型
-       */
-      console.log(this instanceof F);
-      return me.apply(
-        this instanceof F ? this : context || this, // 判断返回的bound有没有被new,如果有返回this指向bound如果没有this指向context
-        finalArgs
-      );
-    };
-    bound.prototype = new F();
-    return bound;
-  };
-const test = function(aa, bb, cc) {
-  console.log("函数内", arguments, this.aa);
-};
-test.prototype.mimimama = () => {
-  console.log("咪咪咪嘛嘛嘛嘛");
-};
-const test1 = {
-  aa: 111,
-  bbb: 222
-};
-const test2 = test.bind(test1, 333, 444, 555);
-// test2(666);
-const test3 = new test2(666);
-test3.mimimama();
+Reflect.apply(fn, 1, [2, 3]); // fn 绑定的函数，1 this的指向，[2,3]是参数 等价于 Function.prototype.apply.call(fn,1,[2,3]) 这样做的是为了 调用原型上的apply方法 （比如在实例上写了一个apply方法 但是你想调用的原型上的 就这样用行了）
+
+// 8) construct 构造器 跟new的功能一样
+class Example {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+let example = Reflect.construct(Example, ["Mopecat", "forever18"]); // 参数  target构造函数 ，[]参数数组
+console.log(example);
+
+// 9) delete 跟delete功能一样 但是 返回是否删除成功
+Reflect.deleteProperty;
+
+// 10) isExtensible / preventExtensions  是否可扩展 / 组织扩展
+let obj10 = {};
+Reflect.preventExtensions(obj10);
+obj10.a = 1;
+console.log(obj10, Reflect.isExtensible(obj10));
