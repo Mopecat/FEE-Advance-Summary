@@ -13,7 +13,8 @@ function Animal() {
   this.age = 1;
 }
 // es5中的类可以当做函数来调用，es6中不可以
-let a1 = new Animal();
+// Animal(); // 这样调用的时候构造函数里的 this是undefined
+let a1 = new Animal(); // new的时候构造函数里的this指向新的实例
 let a2 = new Animal();
 // 两个实实例上都有相同的属性(实例属性)，但是并不相等
 console.log(a1, a2);
