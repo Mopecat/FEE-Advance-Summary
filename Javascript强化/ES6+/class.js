@@ -68,3 +68,6 @@ let tiger = new Tiger("大九儿");
 console.log(tiger.constructor);
 console.log(tiger.type);
 tiger.say();
+
+// 继承一般就两种 Object.create 和 __proto__改变指向
+// 继承实例的属性就是call
