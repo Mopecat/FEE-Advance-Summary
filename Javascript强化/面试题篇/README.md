@@ -23,7 +23,23 @@ Promise.reject().finally(()=>{
 
 ```
 // 写一个方法 一个方法里能会throw err的同步异常，也可能是返回promise的异步异常，同步的可以用try-catch捕获，promise的要用then/catch捕获，但是我们不确定这个函数是同步错误还是异步错误，所以需要，Promise.try这个方法。下面你是实现方式
-function fn(){}
+function fn(){
+  // throw new Error('同步的错误')
+  return new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      reject('异步的错误')
+    },3000)
+  })
+}
+Promise.try = function(callback){
+  return new Promise((resolve,reject)=>{
+    // Promise.resolve只能返回一个成功的promise所以外面需要再包一层promise
+    return Promise.resolve(callback()).then((resolve,reject))
+  })
+}
+Promise.try(fn).catch(err=>{
+  console.log(err)
+})
 ```
 
 3. `Promise.race`的实现 谁快用谁
