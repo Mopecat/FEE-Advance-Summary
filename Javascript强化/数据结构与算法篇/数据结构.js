@@ -103,5 +103,49 @@ ll.append(1);
 ll.append(2);
 ll.append(3);
 ll.insert(0, 100);
-ll.insert(5, 400);
+// ll.insert(5, 400);
 console.log(JSON.stringify(ll));
+
+// 集合 放置不能重复的项   交集、并集、差集
+
+class Set {
+  constructor() {
+    this.set = {};
+  }
+  add(element) {
+    if (!this.set.hasOwnProperty(element)) {
+      this.set[element] = element;
+    }
+  }
+}
+let set = new Set(); // es6中set的特点是key和value相同
+set.add(1);
+set.add(1);
+console.log(set.set);
+
+// hashTable (哈希表也叫散列表) 就是es6中的Map  松散 无需遍历 取值快 扩展不方便
+class Map {
+  constructor() {
+    this.arr = [];
+  }
+  // 主要是为了计算不重复的key 这个写法并不严谨
+  calc(key) {
+    let total = 0;
+    for (let i = 0; i < key.length; i++) {
+      total += key[i].charCodeAt();
+    }
+    return total % 100;
+  }
+  set(key, value) {
+    key = this.calc(key);
+    this.arr[key] = value;
+  }
+  get(key) {
+    key = this.calc(key);
+    return this.arr[key];
+  }
+}
+let map = new Map();
+map.set("abc", 123);
+map.set("bcd", 456);
+console.log(map.arr);
