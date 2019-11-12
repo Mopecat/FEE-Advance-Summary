@@ -3,11 +3,6 @@
   "prettier.disableLanguages": ["vue"],
   // "prettier.disableLanguages": [],
   "prettier.ignorePath": ".prettierignore",
-  // 是否启用项目的.prettierrc文件作为默认格式化文件
-  "prettier.requireConfig": false,
-  "prettier.stylelintIntegration": false,
-  // 适用集成eslint
-  "prettier.eslintIntegration": true,
   // vetur
   "vetur.validation.template": true,
   // html格式化

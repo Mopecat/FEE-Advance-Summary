@@ -112,3 +112,38 @@ p.then(data=>{
 
 7. 怎么用 `es5` 来模拟 `es6` 中的 `class`
 8. `new`的原理
+   要想用代码还原 `new` 首先我们应该要先知道 `new` 都做了什么？
+
+- 创建一个对象并返回
+- 将构造函数中的 `this` 指向这个对象
+- 继承构造函数原型上的方法
+
+**需要注意的是如果构造函数返回的是个引用空间，那么 new 返回的对象就指向这个引用空间**
+
+下面就是实现的代码例子~ 基本可以跟 `new` 的功能一致
+
+```
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  return null;
+}
+function _new(...constructor) {
+  let [o, ...args] = constructor;
+  let obj = {};
+  let returnValue = o.call(obj, ...args);
+  if (
+    (typeof returnValue === "object" || typeof returnValue === "function") &&
+    returnValue !== null
+  ) {
+    return returnValue;
+  }
+  obj.__proto__ = o.prototype; // 这块也可以用Object.create来做 反正归根到底原理都是这个~
+  return obj;
+}
+
+let person = _new(Person, "Mopecat", "永远18岁");
+let person1 = new Person("Mopecat", "永远18岁");
+console.log(person);
+console.log(person1);
+```
