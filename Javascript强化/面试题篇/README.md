@@ -147,3 +147,6 @@ let person1 = new Person("Mopecat", "永远18岁");
 console.log(person);
 console.log(person1);
 ```
+
+9.与`reduce`相关的面试题
+（1）用`reduce`实现数组扁平化

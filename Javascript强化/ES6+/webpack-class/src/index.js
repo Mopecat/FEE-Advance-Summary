@@ -1,51 +1,77 @@
-// 类
-// __proto__ 指向所属类的原型
-// prototype 所有类都有一个prototype属性
-// constructor prototype.constructor 每个类的原型上都有这个属性
-class Animal {
-  // type = "哺乳类"; // 可以这样声明在实例上 （但是现在还不支持，还是实验性语法）
-  constructor(name) {
-    this.name = name;
-    this.type = "哺乳类"; // 现在还是要这样写的，将来上面那样写就可以了
-  }
-  // 在原型上声明属性 Animal.prototype.a = 1
-  get a() {
-    // 这里的实现原理是 Object.defineProperty(Animal.prototype,a)
-    return 1;
-  }
-  // 放到原型上的方法 相当于 Animal.pototype.say
-  say() {
-    console.log(this, "===");
-  }
-  // 静态属性就是定义在类上的属性
-  static flag = "动物"; // 这样用=赋值是es7的语法 es6中只有静态方法 flag(){ return '动物'}
-  // es6中的静态属性的写法是
-  static get flagES6() {
-    return "ES6 => flag";
-  }
-}
-let animal = new Animal();
-let say = animal.say; // 如果将类中的方法拿出来用必须绑定this 否则默认指向undefined
-say(); // undefined
-// 应该用bind绑定一下
-let say1 = animal.say.bind(animal);
-say1();
-console.log(Animal.flag, Animal.flagES6);
+// 装饰器 装饰模式， 在执行类之前，对类,类的属性还有类中的方法进行包装（类中的属性，还有类中的方法）参数分别为 类的原型，装饰的key，key对应的属性装饰器
+// 装饰器必须是个函数 传参了就再包一层返回一个函数
+@type1("传了个参数1")
+@type2("传了个参数2")
+class Animal {}
 
-class Tiger extends Animal {
-  // 如果子类里写了constructor 就必须调用super 不然会报错 Must call super constructor in derived class before accessing 'this' or returning from derived constructor
-  constructor(name) {
-    super(name); // 相当于 Animal.call(tiger,name) 在constructor中只能被调用一次
-  }
-  static getAnimal() {
-    console.log(super.flag, "静态方法中的super就是父类");
-  }
-  say() {
-    super.say(); //
-    console.log("原型上的方法中的super是父类的原型");
+// 对类进行扩展 如果不传参 就近执行 先执行2后执行1, 如果传参了 就先执行外层函数的1，2，然后执行内层函数的2，1，像切洋葱一样的执行顺序
+
+function type1(args) {
+  console.log(`t1`);
+  return function(Constructor) {
+    console.log("inner1");
+    Constructor.type1 = args;
+  };
+}
+
+function type2(args) {
+  console.log(`t2`);
+  return function(Constructor) {
+    console.log("inner2");
+    Constructor.type2 = args;
+  };
+}
+
+let animal = new Animal();
+console.log(animal);
+
+class Circle {
+  @readonly PI = 3.14; // 实例上的属性
+  @before
+  area(radius) {
+    console.log(this);
+    console.log("圆的面积是：" + radius * radius * this.PI);
   }
 }
-let tiger = new Tiger("老虎");
-console.log(Tiger.flag); // 静态方法和静态属性在es6中也会被子类继承
-console.log(tiger);
-tiger.say();
+
+function readonly(circlePrototype, key, descriptor) {
+  console.log(circlePrototype, key, descriptor);
+  descriptor.writable = false;
+}
+function before(circlePrototype, key, descriptor) {
+  let func = descriptor.value; // 赋值原函数
+
+  descriptor.value = function(args) {
+    console.log(
+      "求圆的面积之前呢 可以做点什么，顺便求个周长吧：" + this.PI * args * 2
+    );
+    func.bind(this)(args); // 调用原函数,绑定当前的this,circle
+  };
+}
+let circle = new Circle();
+circle.PI = 3.111; // 修改失败
+console.log(circle.PI);
+circle.area.bind(circle)(10); // 将area的this指向circle 用es6 class声明的原型上的方法中的this指向undefined
+
+// mixin
+let obj = {
+  name: "Feely",
+  age: "forever 18",
+  info() {
+    console.log("Feely贼几把帅");
+  }
+};
+
+@mixin(obj)
+class Feely {}
+// const mixin = obj => Feely => Object.assign(Feely.prototype, obj);
+// 试了一下上面的简便写法 报错，错误是const不支持变量提升这种错误，所以目前来看装饰器的外层函数必须要用function来写了
+function mixin(obj) {
+  return function(Feely) {
+    Object.assign(Feely.prototype, obj);
+  };
+}
+
+let feely = new Feely();
+console.log(feely); // obj的属性和方法都已经挂到了 Feely的原型上
+feely.info();

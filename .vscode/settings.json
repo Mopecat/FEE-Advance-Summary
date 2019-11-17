@@ -7,6 +7,7 @@
   "vetur.validation.template": true,
   // html格式化
   "vetur.format.defaultFormatter.html": "prettyhtml",
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
   // html css support
   "css.fileExtensions": ["css", "scss"],
   "editor.tabSize": 2,
