@@ -23,7 +23,9 @@ let total = arrobj.reduce(
 console.log(total);
 // 可以用这个api求平均数，求和，求最大值，最小值
 
-// 函数的组合 compose
+// (1)用reduce实现数组扁平化 （flat）
+
+// (2)函数的组合 compose
 // 解释一下什么意思
 function sum(a, b) {
   return a + b;
@@ -65,3 +67,5 @@ function compose(...args) {
 //   args.reduce((prev, current) => (...values) => prev(current(...values)));
 let resultCompose = compose(addCurrency, len, sum)("asdf", "hjkl");
 console.log(resultCompose);
+
+// (3)实现Array.prototype.reduce

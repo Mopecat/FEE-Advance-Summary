@@ -149,6 +149,7 @@ console.log(person1);
 ```
 
 9.[与数组`reduce`相关的面试题][1]
+
 （1）用`reduce`实现数组扁平化 (flat)
 （2）函数的组合 compose
 （3）实现 Array.prototype.reduce
