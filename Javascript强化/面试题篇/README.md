@@ -154,4 +154,7 @@ console.log(person1);
 （2）函数的组合 compose
 （3）实现 Array.prototype.reduce
 
+10. [模板引擎的实现原理][2]
+
 [1]: ./reduce.js
+[2]: ./templateEngine.js
