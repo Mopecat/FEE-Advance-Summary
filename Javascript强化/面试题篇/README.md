@@ -167,7 +167,7 @@ console.log(person1);
 
 11. **浏览器事件环**
 
-![浏览器事件环]('https://github.com/Mopecat/FEE-Advance-Summary/blob/master/Javascript%E5%BC%BA%E5%8C%96/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%AF%87/images/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E7%8E%AF.jpg')
+![浏览器事件环](./images/浏览器事件环.jpg)
 
 [代码及分析][3]
 
