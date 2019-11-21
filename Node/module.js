@@ -29,5 +29,33 @@ console.log(path.dirname(__dirname)); // 获取父路径
 const vm = require("vm"); // 虚拟机模块
 // vm提供了一个沙箱环境（安全且不影响其他）
 let b = 1000;
-vm.runInThisContext(`console.log(b)`); // 访问不到b
+// vm.runInThisContext(`console.log(b)`); // 访问不到b
 vm.runInThisContext(`console.log('vvv')`); // 可以打印vvv
+
+// node 模块化的核心源码 主要依靠文件的读写
+function Module(filePath) {
+  this.id = filePath;
+  this.exports = {};
+}
+const fnArr = ["(function(exports,module,require) {", "})"];
+Module.prototype.load = function() {
+  let script = fs.readFileSync(this.id, "utf8");
+  let fnStr = fnArr[0] + script + fnArr[1];
+  let fn = vm.runInThisContext(fnStr);
+  fn(this.exports, this, req);
+};
+
+function req(fileName) {
+  // 获取绝对路径
+  let absPath = path.resolve(__dirname, fileName);
+  // 加载模块
+  let module = new Module(absPath);
+
+  // 加载文件
+  module.load();
+  return module.exports;
+}
+
+// let a = req("./a.js");
+// console.log(a);
+let c = require("./a.js");
