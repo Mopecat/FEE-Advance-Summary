@@ -1,3 +1,9 @@
+## 概念
+
+- `nrm` 源管理
+- `nvm` 版本管理
+- `npm` 包管理
+
 ## 初始化包
 
 package.json
@@ -82,3 +88,30 @@ npm version major // 第一位+1
 - `alpha` => 内部测试版本
 - `beta` => 公开测试版本
 - `rc` => 基本 ok 了
+
+## 协议问题
+
+开源软件一般就选择 `MIT` 协议
+
+![开源协议选择](./licenses.png)
+
+## scripts
+
+可以用`scripts` 配置执行的脚本
+
+1） 执行命令 `echo XXXX` 输出这一类的
+
+2） 执行 `node_modules/.bin`目录下的文件
+
+当执行 `npm run`的时候 会把当前目录`node_modules/.bin`也拷贝到当前系统的 `path` 中(用完就删掉)，所以 `npm run` 可以执行`.bin`下的文件
+
+## npx
+
+可以直接执行 `node_modules/.bin` 目录下的文件，不需要去配 `scripts`
+
+> 优点：如果执行的模块不存在，会自动安装，安装完执行完毕后自动销毁，避免安装全局模块。比如：`npx create-react-app project-name`
+
+## 发布
+
+1. 登录 `npm login`
+2. 发布 `npm publish`
