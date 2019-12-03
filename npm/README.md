@@ -93,7 +93,7 @@ npm version major // 第一位+1
 
 开源软件一般就选择 `MIT` 协议
 
-![开源协议选择](./licenses.png)
+![开源协议选择](licenses.png)
 
 ## scripts
 
