@@ -39,3 +39,10 @@ ncp = promisify(ncp);
   );
   console.log("拷贝成功");
 })();
+
+// inherits node内部不是用es6写的 实现类的继承
+function Parent() {}
+function Child() {}
+// 原理就是 Object.setPrototypeOf(Child.prototype,Parent.prototype)
+util.inherits(Child, Parent); // 继承公共属性
+console.log(util.inspect(Array.prototype, { showHidden: true })); // 可以显示隐藏属性
