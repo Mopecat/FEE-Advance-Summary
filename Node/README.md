@@ -36,5 +36,6 @@ console.log(process.argv.slice(2));
 6. `clearImmediate` `setImmediate`
 
 [代码示例][2]
+
 [1]: ./module/module.js
 [2]: ./global/index.js

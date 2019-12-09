@@ -47,10 +47,42 @@
 
 涉及面试题
 
-- 怎么去用 `es5` 来模拟 `es6` 中的 `class`
+- 怎么去用 `es5` 来模拟 `es6` 中的 `class` [代码][6]
 - new 的原理
 
 `es5` 中没有类，用构造函数模拟类。`es5` 中的类可以当做函数来调用，`es6` 中不行
+
+更多代码示例，点击[这里][4]
+
+### 装饰器
+
+- 装饰模式：不改变原有状态，在访问原来函数之前做一系列操作
+- AOP 面向切片编程
+- 重写原型方法 例子，vue 里调用数组方法实现视图的更新 函数劫持，下面例子
+
+```javascript
+let oldProto = Array.prototype; // 保留数组原有的原型
+let proto = Object.create(oldProto); // 创建了一个新proto
+["push", "unshift", "shift"].forEach(method => {
+  proto[method] = function(...args) {
+    update();
+    oldProto[method].call(this, ...args);
+  };
+});
+
+function observer(obj) {
+  // 只将我们传入的数组中的方法重写
+  if (Array.isArray(obj)) {
+    obj.__proto__ = proto;
+  }
+}
+observer(arr);
+arr.push(1);
+console.log(arr);
+[].push(4, 5, 6);
+```
+
+更多代码示例，点击[这里][5]
 
 ### generator
 
@@ -65,3 +97,6 @@
 [1]: https://github.com/Mopecat/FEE-Advance-Summary/tree/master/Javascript%E5%BC%BA%E5%8C%96/ES6%2B/解构赋值.js
 [2]: https://github.com/Mopecat/FEE-Advance-Summary/tree/master/Javascript%E5%BC%BA%E5%8C%96/ES6%2B/set+map.js
 [3]: https://github.com/Mopecat/FEE-Advance-Summary/tree/master/Javascript%E5%BC%BA%E5%8C%96/ES6%2B/generator.js
+[4]: ./webpack-class/src/class.js
+[5]: ./webpack-class/src/index.js
+[6]: ./webpack-class/src/tes.js

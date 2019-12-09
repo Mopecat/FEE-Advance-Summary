@@ -1,71 +1,84 @@
 1. **`promise.finally` 的实现**
 
-```
-Promise.prototype.finally = function(callback){
-  return this.then((val)=>{
-    // 等待finally中的函数执行完毕，继续执行，finally函数可能返还一个promise用Promise.resolve等待返回的promise执行完
-    return Promise.resolve(callback().then(()=>val))
-  },err=>{
-    return Promise.resolve(callback().then(()=>{throw err}))
+```javascript
+Promise.prototype.finally = function(callback) {
+  return this.then(
+    val => {
+      // 等待finally中的函数执行完毕，继续执行，finally函数可能返还一个promise用Promise.resolve等待返回的promise执行完
+      return Promise.resolve(callback().then(() => val));
+    },
+    err => {
+      return Promise.resolve(
+        callback().then(() => {
+          throw err;
+        })
+      );
+    }
+  );
+};
+Promise.reject()
+  .finally(() => {
+    console.log(1);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
   })
-}
-Promise.reject().finally(()=>{
-  console.log(1)
-  return new Promise((resolve,reject)=>{
-    setTimeout(()=>{resolve()},1000)
-  })
-}).catch(e=>{
-  console.log(e)
-})
+  .catch(e => {
+    console.log(e);
+  });
 ```
 
 2. **`Promise.try` 这个方法原生里没有**
 
 **既能捕获同步异常也能捕获异步异常**
 
-```
+```javascript
 // 写一个方法 一个方法里能会throw err的同步异常，也可能是返回promise的异步异常，同步的可以用try-catch捕获，promise的要用then/catch捕获，但是我们不确定这个函数是同步错误还是异步错误，所以需要，Promise.try这个方法。下面你是实现方式
-function fn(){
+function fn() {
   // throw new Error('同步的错误')
-  return new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-      reject('异步的错误')
-    },3000)
-  })
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("异步的错误");
+    }, 3000);
+  });
 }
-Promise.try = function(callback){
-  return new Promise((resolve,reject)=>{
+Promise.try = function(callback) {
+  return new Promise((resolve, reject) => {
     // Promise.resolve只能返回一个成功的promise所以外面需要再包一层promise
-    return Promise.resolve(callback()).then((resolve,reject))
-  })
-}
-Promise.try(fn).catch(err=>{
-  console.log(err)
-})
+    return Promise.resolve(callback()).then((resolve, reject));
+  });
+};
+Promise.try(fn).catch(err => {
+  console.log(err);
+});
 ```
 
 3. **`Promise.race`的实现 谁快用谁**
 
-```
-let p1= new Promise((resolve,reject)=>{
-  setTimeout(()=>{
-    resolve('p1')
-  },1000)
-})
-let p2= new Promise((resolve,reject)=>{
-  setTimeout(()=>{
-    resolve('p2')
-  },2000)
-})
+```javascript
+let p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("p1");
+  }, 1000);
+});
+let p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("p2");
+  }, 2000);
+});
 
-Promise.race = function(promises){
-  return new Promise((resolve,reject)=>{
-    for(let i = 0;i<promises.length;i++){
-      promises[i].then((resolve,reject))
+Promise.race = function(promises) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then((resolve, reject));
     }
-  })
-}
-Promise.race([p1,p2]).then(data=>{ console.log(data) })
+  });
+};
+Promise.race([p1, p2]).then(data => {
+  console.log(data);
+});
 ```
 
 4. **`Promise`有哪些优缺点？**
@@ -77,21 +90,23 @@ Promise.race([p1,p2]).then(data=>{ console.log(data) })
 
 返回一个等待的 promise
 
-```
-let p = new Promise((resolve,reject)=>{
-  resolve()
-})
-let p1 = p.then(()=>{
-  console.log('ok')
-  return new Promise(()=>{})
-}).then(()=>{
-  console.log(111)
-})
+```javascript
+let p = new Promise((resolve, reject) => {
+  resolve();
+});
+let p1 = p
+  .then(() => {
+    console.log("ok");
+    return new Promise(() => {});
+  })
+  .then(() => {
+    console.log(111);
+  });
 ```
 
 6. **如何放弃某个 `promise` 执行结果**
 
-```
+```javascript
 function wrap(p1){
   let fail = null;
   let p2 = new Promise((resolve,reject)=>{
@@ -125,7 +140,7 @@ p.then(data=>{
 
 下面就是实现的代码例子~ 基本可以跟 `new` 的功能一致
 
-```
+```javascript
 function Person(name, age) {
   this.name = name;
   this.age = age;
