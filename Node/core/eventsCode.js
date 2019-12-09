@@ -3,7 +3,7 @@ function EventEmitter() {
   this._events = Object.create(null);
 }
 
-EventEmitter.prototype.on = function(eventName, callback) {
+EventEmitter.prototype.on = function (eventName, callback) {
   // (this._events[eventName] || []).push(callback)
   // 如果实例上没有_events属性就添加上一个，指例子中的Myevents的情况 => 此时的this是Myevents的实例 而非 EventEmitter的实例 所以this上没有 _events
   if (!this._events) this._events = Object.create(null);
@@ -19,12 +19,30 @@ EventEmitter.prototype.on = function(eventName, callback) {
   }
 };
 
-EventEmitter.prototype.emit = function(eventName, ...args) {
+EventEmitter.prototype.emit = function (eventName, ...args) {
   if (this._events[eventName]) {
     this._events[eventName].forEach(fn => {
       fn(...args);
     });
   }
 };
-EventEmitter.prototype.off = () => {};
+
+EventEmitter.prototype.once = function (eventName, callback) {
+  // 用one代替callback 在执行了callback之后 删除callback 由此实现了只执行一次
+  let one = () => {
+    callback();
+    this.off(eventName, callback)
+  }
+  // 如果手动off了 那么传入off的callback跟one肯定是不相等的 所以将callback赋值给one的自定义属性，用于在off中判断
+  one.l = callback
+  this.on(eventName, one)
+}
+EventEmitter.prototype.off = function (eventName, callback) {
+  if (this._events[eventName]) {
+    this._events[eventName] = this._events[eventName].filter(fn => {
+      // 返回false的会被过滤掉
+      return fn !== callback && fn.l !== callback
+    })
+  }
+};
 module.exports = EventEmitter;
