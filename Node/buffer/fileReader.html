@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="drag" style="height: 200px;width: 200px;background: red;"></div>
+    <script>
+      drag.addEventListener("dragover", e => e.preventDefault());
+      drag.addEventListener("drop", e => {
+        e.preventDefault();
+        let fr = new FileReader();
+        let r = fr.readAsDataURL(e.dataTransfer.files[0]);
+        fr.onload = function(e) {
+          let img = new Image();
+          img.src = e.target.result;
+          document.body.appendChild(img);
+        };
+      });
+    </script>
+  </body>
+</html>
