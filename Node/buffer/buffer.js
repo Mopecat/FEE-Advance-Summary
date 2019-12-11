@@ -50,4 +50,50 @@ console.log(buf1);
 console.log(buf2);
 console.log(buf3);
 // 2) buffer常见方法
+// 和数组类似
+let arr = [[1, 2, 3], 4, 5, 6]
+let newArr = arr.slice(0)
+newArr[0][1] = 100;
+console.log(arr)  // arr 变化了 证明 数组的slice是浅拷贝
+
+// buffer的slice方法也是浅拷贝
+let buffer = Buffer.from('九儿')
+let newBuffer = buffer.slice(0)
+newBuffer[0] = 100
+console.log(buffer)
+// 判断buffer类型
+console.log(Buffer.isBuffer(buffer))
+
+// Buffer不能扩展大小但是可以用copy
+// copy
+let targetBuffer = Buffer.alloc(6)
+let sourceBuffer1 = Buffer.from('九')
+let sourceBuffer2 = Buffer.from('儿')
+// 实现copy的源代码 
+Buffer.prototype.copy = function (targetBuffer, targetStart, sourceStart = 0, sourceEnd = this.length) {
+  for (let i = 0; i < sourceEnd - sourceStart; i++) {
+    targetBuffer[i + targetStart] = this[i + sourceStart]
+  }
+}
+// 源buffer.copy(目标buffer,目标buffer的起始位置,源buffer的起始位置,源buffer的结束位置)
+sourceBuffer1.copy(targetBuffer, 0, 0, 3)
+sourceBuffer2.copy(targetBuffer, 3, 0, 3)
+console.log(targetBuffer.toString()) // 九儿
+
+// concat 拼接 更常用一些 更好用一些
+// concat 原理代码
+Buffer.prototype.concat = function (list, length = list.reduce((a, b) => a + b.length, 0)) {
+  // length如果没传就默认指list中所有的buffer的总长度 用reduce求和 完美
+  let buffer = Buffer.alloc(length)
+  let offset = 0
+  list.forEach(b => {
+    b.copy(buffer, offset)
+    offset += b.length
+  })
+  return buffer
+}
+console.log(Buffer.concat([sourceBuffer1, sourceBuffer2, sourceBuffer2]).toString()) // 九儿儿
+
+// indexOf
+console.log(targetBuffer.indexOf('儿'))
 // 3) buffer的扩展方法
