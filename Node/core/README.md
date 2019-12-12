@@ -10,7 +10,12 @@
   - `isDate`,`isNumber`，`isPrimitive`（判断是否是原始数据类型的）等各种判断方法
 
 - `events` 模块
+
   - `on` 订阅 用法：`.on('eventsName',callback)`
   - `emit` 发布 用法： `.emit('eventsName',...args)`
   - `off` 删除订阅 用法同 `on`
   - `once` 订阅后只执行一次 用法同`on`
+
+- `Buffer`模块 [链接][1]
+
+[1]: ./buffer

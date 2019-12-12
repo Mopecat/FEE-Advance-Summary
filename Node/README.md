@@ -27,7 +27,7 @@ console.log(process.argv.slice(2));
 - `process.env`: 环境变量
 - `process.nextTick`: `node` 中的微任务
 
-3. `Buffer` 缓存区(用来处理二进制数据的) `node`读取文件时存储的是二进制的 二进制比较长 所以缓存区存储的是十六进制的
+3. `Buffer` 缓存区(用来处理二进制数据的) `node`读取文件时存储的是二进制的 二进制比较长 所以缓存区存储的是十六进制的 [链接][3]
 
 4. `clearInterval` `setInterval`
 
@@ -39,3 +39,4 @@ console.log(process.argv.slice(2));
 
 [1]: ./module/module.js
 [2]: ./global/index.js
+[3]: ./core/buffer
