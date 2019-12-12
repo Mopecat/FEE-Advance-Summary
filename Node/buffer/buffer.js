@@ -97,3 +97,23 @@ console.log(Buffer.concat([sourceBuffer1, sourceBuffer2, sourceBuffer2]).toStrin
 // indexOf
 console.log(targetBuffer.indexOf('儿'))
 // 3) buffer的扩展方法
+
+Buffer.prototype.split = function (sep) {
+  let len = Buffer.from(sep).length
+  let offset = 0
+  let current
+  let result = []
+  // 让当前的位置等于从offset开始找到的第一个sep 如果找到了就把从offset到current这一段放倒数组中 然后将offset 放当current加len的位置 再进行下一次的查找
+  while ((current = this.indexOf(sep, offset)) !== -1) {
+    result.push(this.slice(offset, current))
+    offset = current + len
+  }
+  result.push(this.slice(offset)) // 把最后一段也push进去
+  return result
+}
+
+let bufferSplit = Buffer.from(`九儿九儿九儿九儿
+九儿九儿九儿九儿
+九儿九儿九儿九儿`)
+let re = bufferSplit.split('\n')
+console.log(re) // 拿到了三段buffer
