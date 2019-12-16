@@ -37,6 +37,9 @@ console.log(process.argv.slice(2));
 
 [代码示例][2]
 
+#### 核心模块 core [链接][4]
+
 [1]: ./module/module.js
 [2]: ./global/index.js
 [3]: ./core/buffer
+[4]: ./core
