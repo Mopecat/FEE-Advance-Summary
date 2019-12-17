@@ -14,27 +14,27 @@ let rs = fs.createReadStream(path.resolve(__dirname, "1.txt"), {
 });
 
 // 文件打开触发
-rs.on("open", function() {
-  console.log("文件打开");
-});
+// rs.on("open", function() {
+//   console.log("文件打开");
+// });
 
-rs.on("data", function(data) {
-  console.log(data);
-});
+// rs.on("data", function(data) {
+//   console.log(data);
+// });
 
-// 文件读取完毕
-rs.on("end", function() {
-  console.log("文件读取完毕");
-});
+// // 文件读取完毕
+// rs.on("end", function() {
+//   console.log("文件读取完毕");
+// });
 
-// 文件关闭触发
-rs.on("close", function() {
-  console.log("文件关闭");
-});
+// // 文件关闭触发
+// rs.on("close", function() {
+//   console.log("文件关闭");
+// });
 
-rs.on("error", function() {
-  console.log("出错了");
-});
+// rs.on("error", function() {
+//   console.log("出错了");
+// });
 
 // 以上是正常用法
 // 下面要用自己写的
@@ -51,24 +51,24 @@ let myrs = new ReadStream(path.resolve(__dirname, "1.txt"), {
 });
 
 // 文件打开触发
-myrs.on("open", function() {
-  console.log("文件打开");
+myrs.on("open", function (fd) {
+  console.log("文件打开", fd);
 });
 
-myrs.on("data", function(data) {
+myrs.on("data", function (data) {
   console.log(data);
 });
 
 // 文件读取完毕
-myrs.on("end", function() {
+myrs.on("end", function () {
   console.log("文件读取完毕");
 });
 
 // 文件关闭触发
-myrs.on("close", function() {
+myrs.on("close", function () {
   console.log("文件关闭");
 });
 
-myrs.on("error", function() {
+myrs.on("error", function () {
   console.log("出错了");
 });
