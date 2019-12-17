@@ -136,5 +136,15 @@ fs.rmdir(path, callback); // 如果目录下有东西就不能删除
 
 [示例代码][2]
 
+## 可读流
+
+应用发布订阅实现`fs`的写法的解耦
+
+- [用法实例][3]
+
+- [可读流代码原理][4]
+
 [1]: ./fs.js
 [2]: ./fs的方法.js
+[3]: ./stream/stream.js
+[4]: ./stream/ReadStream.js
