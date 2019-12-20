@@ -63,5 +63,8 @@
       "sortAttributes": false
     }
   },
-  "vetur.format.defaultFormatter.js": "none"
+  "vetur.format.defaultFormatter.js": "none",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
