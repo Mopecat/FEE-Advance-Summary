@@ -49,7 +49,7 @@ class ReadStream extends EventEmitter {
         this.offset += bytesRead;
         if (bytesRead > 0) {
           // 如果读取到内容了 触发data
-          this.emit("data", buffer);
+          this.emit("data", buffer.slice(0, bytesRead));
           this.flowing && this.read();
         } else {
           this.emit("end");
@@ -71,6 +71,17 @@ class ReadStream extends EventEmitter {
   resume() {
     this.flowing = true;
     this.read();
+  }
+  pipe(ws) {
+    this.on("data", chunk => {
+      let flag = ws.write(chunk);
+      if (!flag) {
+        this.pause();
+      }
+    });
+    ws.on("drain", () => {
+      this.resume();
+    });
   }
 }
 

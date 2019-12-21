@@ -5,11 +5,21 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "nodeLauch", //单独调试js，即可以直接运行js
       "type": "node",
       "request": "launch",
-      "name": "启动程序",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/Node/module.js"
+      "program": "${file}", //这个配置成你要调试的文件、${file}当前打开的文件
+      "stopOnEntry": false,
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": null,
+      "runtimeArgs": ["--nolazy"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "internalConsole",
+      "preLaunchTask": "",
+      "sourceMaps": false
     }
   ]
 }
