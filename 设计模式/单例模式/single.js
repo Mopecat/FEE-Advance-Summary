@@ -28,10 +28,33 @@ storage2.getItem('name')
 storage1 === storage2
 
 // 实现闭包版本
-function Storage() { }
+function StoragecClosure() { }
 Storage.prototype.getItem = function (key) {
   return localStorage.getItem(key)
 }
 Storage.prototype.setItem = function (key, value) {
   return localStorage.setItem(key, value)
 }
+
+const Storage = (function(){
+  let instance = null;
+  return function(){
+    if(!instance){
+      instance = new StoragecClosure();
+    }
+    return instance
+  }
+})()
+
+// 这里其实不用 new Storage 的形式调用，直接 Storage() 也会有一样的效果 
+const storage1 = new Storage()
+const storage2 = new Storage()
+
+storage1.setItem('name', '李雷')
+// 李雷
+storage1.getItem('name')
+// 也是李雷
+storage2.getItem('name')
+
+// 返回true
+storage1 === storage2

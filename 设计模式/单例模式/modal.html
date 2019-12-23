@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>modal</title>
+    <style>
+      #modal {
+        height: 200px;
+        width: 200px;
+        line-height: 200px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid black;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="open">打开弹框</button>
+    <button id="close">关闭弹框</button>
+    <script>
+      const Modal = (function() {
+        let modal = null;
+        return function() {
+          if (!modal) {
+            modal = document.createElement("div");
+            modal.innerHTML = "全局唯一弹窗啦啦啦啦";
+            modal.id = "modal";
+            modal.style.display = "none";
+            document.body.appendChild(modal);
+          }
+          return modal;
+        };
+      })();
+      document.getElementById("open").addEventListener("click", function() {
+        // 未点击则不创建modal实例，避免不必要的内存占用;此处不用 new Modal 的形式调用也可以，和 Storage 同理
+        const modal = new Modal();
+        modal.style.display = "block";
+      });
+      document.getElementById("close").addEventListener("click", function() {
+        const modal = new Modal();
+        if (modal) modal.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
