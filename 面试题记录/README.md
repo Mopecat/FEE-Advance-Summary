@@ -192,8 +192,6 @@ console.log(person1);
 
 - 实现一个全局唯一的 `Modal` 弹框 [代码][5]
 
-[代码][4]
-
 [1]: ./reduce.js
 [2]: ./templateEngine.js
 [3]: ./eventLoop.js
