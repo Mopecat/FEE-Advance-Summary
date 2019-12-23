@@ -186,6 +186,14 @@ console.log(person1);
 
 [代码及分析][3]
 
+12. **单例模式相关面试题**
+
+- 实现 `Storage`，使得该对象为单例，基于 `localStorage` 进行封装。实现方法 `setItem(key,value)` 和 `getItem(key)`。
+- 实现一个全局唯一的 `Modal` 弹框
+
+[代码][4]
+
 [1]: ./reduce.js
 [2]: ./templateEngine.js
 [3]: ./eventLoop.js
+[4]: ../设计模式/单例模式/sing.js
