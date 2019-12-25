@@ -192,8 +192,15 @@ console.log(person1);
 
 - 实现一个全局唯一的 `Modal` 弹框 [代码][5]
 
+13. **深拷贝的前世今生**
+
+看到的还不错的文章 https://segmentfault.com/a/1190000016672263
+
+`weakMap`的解决方案：[代码][6]
+
 [1]: ./reduce.js
 [2]: ./templateEngine.js
 [3]: ./eventLoop.js
 [4]: ../设计模式/单例模式/single.js
 [5]: ../设计模式/单例模式/modal.html
+[6]: ../Javascript强化/ES6+/set+map.js
