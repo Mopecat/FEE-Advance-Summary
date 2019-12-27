@@ -31,7 +31,7 @@ EventEmitter.prototype.once = function (eventName, callback) {
   // 用one代替callback 在执行了callback之后 删除callback 由此实现了只执行一次
   let one = () => {
     callback();
-    this.off(eventName, callback)
+    this.off(eventName, one) // 下面on的是one所以这里off的应该也是one
   }
   // 如果手动off了 那么传入off的callback跟one肯定是不相等的 所以将callback赋值给one的自定义属性，用于在off中判断
   one.l = callback

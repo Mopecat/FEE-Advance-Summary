@@ -25,10 +25,10 @@ myevents.on("newListener", type => {
     myevents.emit("九儿");
   });
 });
+let callback =function() { console.log("喵");};
+myevents.once("九儿",callback);
+myevents.off("九儿", callback);
 
-myevents.once("九儿", () => {
-  console.log("喵");
-});
 myevents.once("九儿", () => {
   console.log("喵喵");
 });
