@@ -124,5 +124,88 @@ A 不能直接访问 B，A 需要借助一个帮手来访问 B，这个帮手就
 
 与策略模式不同的是，策略模式中被封装出来的功能是单一的，没有联系的，如果这些功能之间有联系，比如某一个功能需要调用被封装出来的另一个功能，这个时候就要应用状态模式，做法就是用一个类封装，将封装状态方法的对象，放在类中。
 
+#### 行为型：[观察者模式][3]
+
+#### 行为型：迭代器模式
+
+> 迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露该对象的内部表示。
+> ——《设计模式：可复用面向对象软件的基础》
+
+通俗的举个例子就是说，`javascript`中的遍历数组的`forEach`无法遍历类数组，而数组是集合，类数组也是集合 同样有遍历需求，我们却要针对不同的数据结构执行不同的遍历手段。
+
+迭代器的定义就是遍历集合时，不需要关心集合的内部数据结构。
+
+`ES6`中的迭代器：
+
+```javascript
+const arr = [1, 2, 3];
+// 通过调用iterator，拿到迭代器对象
+const iterator = arr[Symbol.iterator]();
+
+// 对迭代器对象执行next，就能逐个访问集合的成员
+iterator.next(); // {value: 1,done: false}
+iterator.next();
+iterator.next();
+```
+
+`for...of..`做的事情，基本等价于下面这通操作：
+
+```javascript
+// 通过调用iterator，拿到迭代器对象
+const iterator = arr[Symbol.iterator]();
+
+// 初始化一个迭代结果
+let now = { done: false };
+
+// 循环往外迭代成员
+while (!now.done) {
+  now = iterator.next();
+  if (!now.done) {
+    console.log(`现在遍历到了${now.value}`);
+  }
+}
+```
+
+`ES6`中的迭代器可以由生成器创建,生成器就是带`*`的函数，也就是说生成器函数返回的是一个迭代器对象
+
+```javascript
+// 编写一个迭代器生成函数
+function* iteratorGenerator() {
+  yield "1号选手";
+  yield "2号选手";
+  yield "3号选手";
+}
+
+const iterator = iteratorGenerator(); // 返回了一个迭代器
+
+iterator.next();
+iterator.next();
+iterator.next();
+```
+
+用 `ES5`实现一个生成迭代器对象的迭代器生成函数
+
+```javascript
+function iteratorGenerator(list) {
+  // 接收参数是一个集合
+  var idx = 0; // 下标
+  var len = list.length; // 长度
+  return {
+    next: function() {
+      // 如果索引还没有超出集合长度，done为false
+      var done = idx >= len;
+      // 如果done为false，则可以继续取值
+      var val = !done ? list[idx++] : undefined;
+      // 将当前值与遍历是否完毕（done）返回
+      return {
+        value: val,
+        done: done
+      };
+    }
+  };
+}
+```
+
 [1]: ./工厂模式/工厂模式.md
 [2]: ./单例模式
+[3]: ./观察者模式

@@ -198,9 +198,15 @@ console.log(person1);
 
 `weakMap`的解决方案：[代码][6]
 
+14. **观察者模式面试题**
+
+- `Vue`数据双向绑定（响应式系统）的实现原理
+- 实现一个 `Event Bus/ Event Emitter` [代码][7]
+
 [1]: ./reduce.js
 [2]: ./templateEngine.js
 [3]: ./eventLoop.js
 [4]: ../设计模式/单例模式/single.js
 [5]: ../设计模式/单例模式/modal.html
 [6]: ../Javascript强化/ES6+/set+map.js
+[7]: ../Node/core/eventsCode.js

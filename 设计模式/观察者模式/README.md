@@ -54,3 +54,11 @@ class Observer {
   }
 }
 ```
+
+观察者模式经典面试题
+
+- `Vue`数据双向绑定（响应式系统）的实现原理
+
+- 实现一个 `Event Bus/ Event Emitter` [代码][1]
+
+[1]: ../../Node/core/eventsCode.js
