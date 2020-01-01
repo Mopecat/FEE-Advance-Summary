@@ -48,5 +48,5 @@
 大家都知道`node`比较适合 `I/O` 密集的操作，性能较高。所以很适合做静态服务器。
 那么`node`如何来返回静态文件呢 [原生写法][1] 、[封装后的写法][2]
 
-[1]: ./static.js
-[2]: ./staticServer.js
+[1]: ./base/static.js
+[2]: ./base/staticServer.js
