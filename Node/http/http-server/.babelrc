@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      // 使用preset-env
+      "@babel/preset-env",
+      {
+        // 目标是编译node ， 让当前版本可以识别
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ]
+}

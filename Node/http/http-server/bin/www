@@ -1,0 +1,8 @@
+#! /usr/bin/env node
+
+// 不能在node中运行 ES6规范代码 比如import这一类的 需要用babel转换
+// @babel/cli 在命令行中可以编译代码
+// @babel/core 解析的核心模块
+// @babel/preset-env 将es6=>es5
+// 通过@babel/cli调用@babel/core来使用babel，@babel/core内部会调用@babel/preset-env来设置代码转化
+require("../dist/main");
