@@ -1,0 +1,27 @@
+{
+  "name": "http-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "server": "./bin/www"
+  },
+  "scripts": {
+    "babel": "babel src -d dist",
+    "babel:watch": "babel src -d dist --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "chalk": "^3.0.0",
+    "ejs": "^3.0.1",
+    "mime": "^2.4.4"
+  }
+}

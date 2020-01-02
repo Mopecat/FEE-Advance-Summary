@@ -2,6 +2,7 @@
 // js本身不能提供http服务 所以是用node自身的核心模块 http模块 （这句是废话）
 const http = require("http");
 const url = require("url");
+const querystring = require("querystring");
 let server = http.createServer();
 // url 的用法
 const exampleRequestUrl =
@@ -40,7 +41,17 @@ server.on("error", err => {
     server.listen(++port);
   }
 });
-
+// 运用策略模式封装不同请求头下执行不同的逻辑 由于每个逻辑之间没有联系 所以策略模式无疑
+let headers = {
+  // 表单
+  "application/x-www-form-urlencoded": function(res, content) {
+    return res.end(querystring.parse(content).a + "");
+  },
+  // json
+  "application/json": function(res, content) {
+    return res.end(JSON.parse(content) + "");
+  }
+};
 // 如果别人请求我，我需要解析请求
 server.on("request", (req, res) => {
   // req 代表的客户端
@@ -59,7 +70,7 @@ server.on("request", (req, res) => {
   console.log(req.httpVersion); // 1.1
 
   // 请求头部分
-  console.log(req.headers); // 全是小写
+  console.log("------", req.headers); // 全是小写
 
   // 获取请求体
   // 可以通过命令行发送一个post请求 curl -v -X POST -D a=1 http://localhost:3000
@@ -71,14 +82,22 @@ server.on("request", (req, res) => {
   req.on("end", function() {
     console.log("end");
     console.log(Buffer.concat(arr).toString());
+    // 响应 顺序不能乱 先写响应行 在写响应头 最后写响应体
+    // res.statusCode = 404; // 响应状态码
+    // 响应头
+    // res.setHeader("Content-length", "1"); // 默认会自己计算content-length一般不用给
+    // res.setHeader("Content-type", "text/plain;charset=utf-8");
+    // 响应体
+    // res.write(); // 写的时候不停止，如果想要停止的也就是说一次性写完的可以直接用end
+    // res.end(Buffer.concat(arr));
+    let content = Buffer.concat(arr).toString();
+    let type = req.headers["content-type"];
+    console.log(11111, type);
+    if (typeof headers[type] === "function") {
+      headers[type](res, content);
+    } else {
+      console.log("搞毛啊 没有这个头");
+      return res.end(content);
+    }
   });
-
-  // 响应 顺序不能乱 先写响应行 在写响应头 最后写响应体
-  res.statusCode = 404; // 响应状态码
-  // 响应头
-  // res.setHeader("Content-length", "1"); // 默认会自己计算content-length一般不用给
-  res.setHeader("Content-type", "text/plain;charset=utf-8");
-  // 响应体
-  // res.write(); // 写的时候不停止，如果想要停止的也就是说一次性写完的可以直接用end
-  res.end(`九儿,请求参数是a=${query.a}`);
 });
