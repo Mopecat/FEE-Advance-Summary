@@ -121,3 +121,207 @@
 - memory cache // 内存
 - disk cache // 磁盘
 - Service Worker
+
+### css 优化
+
+**注意**：
+
+- CSS 引擎查找样式表，对每条规则都按从右到左的顺序去匹配。
+
+  错误的情况
+
+  ```css
+  #myList li {
+  }
+  ```
+
+  由于从右向左进行匹配，所以最先匹配`li`这时会将所有的`Dom`中的所有`li`元素，并且每次匹配到了都要去确认`li`元素的父元素的 `id` 是否是`myList`，显然这样的性能是很不好的
+
+  对于这种情况的修改是：
+
+  ```css
+  .myList_li {
+  }
+  ```
+
+  通过上面的分析，可以总结出以下性能提升的方案：
+
+  - 避免使用通配符，只对需要用到的元素进行选择。
+  - 关注可以通过继承实现的属性，避免重复匹配重复定义。
+  - 少用标签选择器
+  - 不要画蛇添足，`id` 和 `class` 选择器不应该被多余的标签选择器拖后腿。
+    ```css
+    /* 错误 */
+    .myList#title
+    /* 正确 */
+    #title
+    ```
+  - 减少嵌套。后代选择器的开销是最高的，因此我们应该尽量将选择器的深度降到最低（最高不要超过三层），尽可能使用类来关联每一个标签元素。
+
+### 加载顺序优化
+
+![浏览器渲染过程](./render.jpg)
+
+- DOM 树：解析 HTML 以创建的是 DOM 树（DOM tree ）：渲染引擎开始解析 HTML 文档，转换树中的标签到 DOM 节点，它被称为“内容树”。
+- CSSOM 树：解析 CSS（包括外部 CSS 文件和样式元素）创建的是 CSSOM 树。CSSOM 的解析过程与 DOM 的解析过程是并行的。
+- 渲染树：CSSOM 与 DOM 结合，之后我们得到的就是渲染树（Render tree ）。
+- 布局渲染树：从根节点递归调用，计算每一个元素的大小、位置等，给每个节点所应该出现在屏幕上的精确坐标，我们便得到了基于渲染树的布局渲染树（Layout of the render tree）。
+- 绘制渲染树: 遍历渲染树，每个节点将使用 UI 后端层来绘制。整个过程叫做绘制渲染树（Painting the render tree）。
+
+由上面过程可知，需要将 DOM 和 CSSOM 两个合并成渲染树，也就是说哪一个没加载完都不能渲染任何内容，所以 css 文件应该尽早的下载，以防止阻塞渲染，所以 css 放在 head 标签里并且使用 cdn 两项十分有必要
+
+js 引擎是独立于渲染引擎的，也就是说 script 标签的代码在何处插入就在何处执行 js,当 html 解析器遇到一个 script 标签的时候他就会暂停渲染。由 js 引擎执行 js，所以一般来说会将 script 标签放在 html 文档的最后面。
+除此之外 script 标签还有两种加载方式：`async/defer`
+
+```html
+<script async src="index.js"></script>
+```
+
+async 模式下，JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。
+
+```html
+<script defer src="index.js"></script>
+```
+
+`defer` 模式下，JS 的加载是异步的，执行是被推迟的。等整个文档解析完成、`DOMContentLoaded` 事件即将被触发时，被标记了 `defer` 的 JS 文件才会开始依次执行。
+
+从应用的角度来说，一般当我们的脚本与 DOM 元素和其它脚本之间的依赖关系不强时，我们会选用 async；当脚本依赖于 DOM 元素和其它脚本的执行结果时，我们会选用 defer。
+
+通过审时度势地向 script 标签添加 `async/defer`，我们就可以告诉浏览器在等待脚本可用期间不阻止其它的工作，这样可以显著提升性能。
+
+### Dom 性能优化
+
+减少 DOM 操作，可以使用 DOM Fragment
+
+### 回流与重绘
+
+- 回流： 当我们对 DOM 的修改引发了 DOM 几何尺寸的变化（比如修改元素的宽、高或隐藏元素等）时，浏览器需要重新计算元素的几何属性（其他元素的几何属性和位置也会因此受到影响），然后再将计算的结果绘制出来。这个过程就是回流（也叫重排）。
+- 重绘： 当我们对 DOM 的修改导致了样式的变化、却并未影响其几何属性（比如修改了颜色或背景色）时，浏览器不需重新计算元素的几何属性、直接为该元素绘制新的样式（跳过了上图所示的回流环节）。这个过程叫做重绘。
+
+重绘不一定导致回流，回流一定会导致重绘
+
+### 懒加载
+
+简单的原理代码，还有可优化的地方，比如节流和防抖，比如如果图片都加载完了，还要卸载事件等等
+[代码][1]
+
+[1]: ./lazy-load/index.html
+
+### 节流和防抖
+
+频繁触发回调导致的大量计算会引发页面的抖动甚至卡顿。为了规避这种情况，我们需要一些手段来控制事件被触发的频率。就是在这样的背景下，`throttle`（事件节流）和 `debounce`（事件防抖）出现了。
+
+**节流和防抖的本质：**
+
+**这两个东西都以闭包的形式存在。**
+
+**它们通过对事件对应的回调函数进行包裹、以自由变量的形式缓存时间信息，最后用 setTimeout 来控制事件的触发频率。**
+
+- 事件节流（`Throttle`）:
+  `throttle` 的中心思想在于：在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束时给予响应。
+
+  ```javascript
+  // fn是我们需要包装的事件回调, interval是时间间隔的阈值
+  function throttle(fn, interval) {
+    // last为上一次触发回调的时间
+    let last = 0;
+
+    // 将throttle处理结果当作函数返回
+    return function() {
+      // 保留调用时的this上下文
+      let context = this;
+      // 保留调用时传入的参数
+      let args = arguments;
+      // 记录本次触发回调的时间
+      let now = +new Date();
+
+      // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
+      if (now - last >= interval) {
+        // 如果时间间隔大于我们设定的时间间隔阈值，则执行回调
+        last = now;
+        fn.apply(context, args);
+      }
+    };
+  }
+  // 用throttle来包装scroll的回调
+  const better_scroll = throttle(() => console.log("触发了滚动事件"), 1000);
+  document.addEventListener("scroll", better_scroll);
+  ```
+
+- 事件防抖（`Debounce`）
+
+  防抖的中心思想在于：我会等你到底。在某段时间内，不管你触发了多少次回调，我都只认最后一次。 即每触发一次都清空上一个
+
+  ```javascript
+  // fn是我们需要包装的事件回调, delay是每次推迟执行的等待时间
+  function debounce(fn, delay) {
+    // 定时器
+    let timer = null;
+
+    // 将debounce处理结果当作函数返回
+    return function() {
+      // 保留调用时的this上下文
+      let context = this;
+      // 保留调用时传入的参数
+      let args = arguments;
+
+      // 每次事件被触发时，都去清除之前的旧定时器
+      if (timer) {
+        clearTimeout(timer);
+      }
+      // 设立新定时器
+      timer = setTimeout(function() {
+        fn.apply(context, args);
+      }, delay);
+    };
+  }
+
+  // 用debounce来包装scroll的回调
+  const better_scroll = debounce(() => console.log("触发了滚动事件"), 1000);
+
+  document.addEventListener("scroll", better_scroll);
+  ```
+
+但是防抖是有问题的，如果用户操作的十分频繁，一段时间内都在 delay 时间内进行了下一次操作，那么回调就会一直被清除掉，操作得不到响应，造成了卡死了的假象。这个时候就需要节流和防抖结合一下
+
+中心思想是，delay 时间内，重新生成定时器，但是只要 delay 时间到了就必须给用户一个响应。
+
+结合版本：重点哦
+
+```javascript
+// fn是我们需要包装的事件回调, delay是时间间隔的阈值
+function throttle(fn, delay) {
+  // last为上一次触发回调的时间, timer是定时器
+  let last = 0,
+    timer = null;
+  // 将throttle处理结果当作函数返回
+
+  return function() {
+    // 保留调用时的this上下文
+    let context = this;
+    // 保留调用时传入的参数
+    let args = arguments;
+    // 记录本次触发回调的时间
+    let now = +new Date();
+
+    // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
+    if (now - last < delay) {
+      // 如果时间间隔小于我们设定的时间间隔阈值，则为本次触发操作设立一个新的定时器
+      clearTimeout(timer);
+      timer = setTimeout(function() {
+        last = now;
+        fn.apply(context, args);
+      }, delay);
+    } else {
+      // 如果时间间隔超出了我们设定的时间间隔阈值，那就不等了，无论如何要反馈给用户一次响应
+      last = now;
+      fn.apply(context, args);
+    }
+  };
+}
+
+// 用新的throttle包装scroll的回调
+const better_scroll = throttle(() => console.log("触发了滚动事件"), 1000);
+
+document.addEventListener("scroll", better_scroll);
+```
