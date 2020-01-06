@@ -69,3 +69,13 @@ let resultCompose = compose(addCurrency, len, sum)("asdf", "hjkl");
 console.log(resultCompose);
 
 // (3)实现Array.prototype.reduce
+// 下面的实现方式并不能作为polyfill 因为reduce是es5引入，forEach 也是es5引入。但是从实现上考虑是没有问题的，实在不行还可以把forEach改成for循环也没什么问题
+Array.prototype.reduce =function(fn, initialValue) {
+  var arr = this
+  var base = typeof initialValue === 'undefined' ? arr[0] : initialValue
+  var startPoint = typeof initialValue === 'undefined' ? 1 : 0 
+  arr.slice(startPoint).forEach((val ,index)=>{
+    base = fn(base,val, index+startPoint,arr)
+  })
+  return base
+}
