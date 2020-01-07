@@ -28,5 +28,5 @@
 
 ## [fs 模块][2]
 
-[1]: ./core/buffer
-[2]: ./core/fs
+[1]: ./buffer
+[2]: ./fs
