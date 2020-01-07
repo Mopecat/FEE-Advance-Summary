@@ -204,9 +204,7 @@ async 模式下，JS 不会阻塞浏览器做任何其它的事情。它的加�
 
 简单的原理代码，还有可优化的地方，比如节流和防抖，比如如果图片都加载完了，还要卸载事件等等
 
-<<< @/docs/performance/lazy-load/index.html
-
-
+<<< @/docs/chapter6/lazy-load/index.html
 
 ## 节流和防抖
 

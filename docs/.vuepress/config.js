@@ -34,6 +34,7 @@ module.exports = {
         collapsable: true,
         children: [
           'chapter4/',
+          'chapter4/core/',
           'chapter4/http/http-1',
           'chapter4/http/http-2',
           'chapter4/http/http-3',

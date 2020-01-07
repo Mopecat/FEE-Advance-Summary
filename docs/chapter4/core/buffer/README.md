@@ -27,7 +27,7 @@
 
 相关代码例子和原理：
 
-<<< @/docs/Node/core/buffer/buffer.js
+<<< @/docs/chapter4/core/buffer/buffer.js
 
 ## Buffer 的扩展方法
 
