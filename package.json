@@ -7,10 +7,12 @@
     "doc": "docs"
   },
   "scripts": {
+    "start": "pm2 start app.js",
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
   "devDependencies": {
+    "mime": "^2.4.4",
     "vuepress": "^1.2.0"
   }
 }

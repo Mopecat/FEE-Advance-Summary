@@ -1,6 +1,6 @@
 module.exports = {
   base: '/web/',
-  dest: 'dist',
+  dest: 'web',
   title: '前端进阶之路',
   description: '前端学习记录',
   themeConfig: {

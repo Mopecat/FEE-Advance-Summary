@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>设计模式笔记 | 前端进阶之路</title>
+    <meta name="description" content="前端学习记录">
+    
+    
+    <link rel="preload" href="/web/assets/css/0.styles.3c55b503.css" as="style"><link rel="preload" href="/web/assets/js/app.958b9048.js" as="script"><link rel="preload" href="/web/assets/js/2.977cf486.js" as="script"><link rel="preload" href="/web/assets/js/7.8c8c7daf.js" as="script"><link rel="prefetch" href="/web/assets/js/10.38f62cb2.js"><link rel="prefetch" href="/web/assets/js/11.7abd6a3f.js"><link rel="prefetch" href="/web/assets/js/12.5cb0d446.js"><link rel="prefetch" href="/web/assets/js/13.399424ab.js"><link rel="prefetch" href="/web/assets/js/14.967f7a15.js"><link rel="prefetch" href="/web/assets/js/15.95ccec89.js"><link rel="prefetch" href="/web/assets/js/16.39ba3e19.js"><link rel="prefetch" href="/web/assets/js/17.852b2425.js"><link rel="prefetch" href="/web/assets/js/18.b2b8c636.js"><link rel="prefetch" href="/web/assets/js/19.c7a69949.js"><link rel="prefetch" href="/web/assets/js/20.b0792cd1.js"><link rel="prefetch" href="/web/assets/js/21.2250a474.js"><link rel="prefetch" href="/web/assets/js/22.885b5d17.js"><link rel="prefetch" href="/web/assets/js/23.301e5267.js"><link rel="prefetch" href="/web/assets/js/24.9a5dde41.js"><link rel="prefetch" href="/web/assets/js/25.eaa0a987.js"><link rel="prefetch" href="/web/assets/js/26.ddd4c3ac.js"><link rel="prefetch" href="/web/assets/js/27.86549956.js"><link rel="prefetch" href="/web/assets/js/28.06a9115f.js"><link rel="prefetch" href="/web/assets/js/29.b9beff5b.js"><link rel="prefetch" href="/web/assets/js/3.42674c08.js"><link rel="prefetch" href="/web/assets/js/4.86ae4f4a.js"><link rel="prefetch" href="/web/assets/js/5.36257110.js"><link rel="prefetch" href="/web/assets/js/6.03dd992c.js"><link rel="prefetch" href="/web/assets/js/8.00e93f98.js"><link rel="prefetch" href="/web/assets/js/9.43c29797.js">
+    <link rel="stylesheet" href="/web/assets/css/0.styles.3c55b503.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/web/" class="home-link router-link-active"><!----> <span class="site-name">前端进阶之路</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/web/chapter1/" class="sidebar-link">面试题记录</a></li><li><a href="/web/chapter2/" class="active sidebar-link">设计模式学习记录</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/web/chapter2/#创建型：工厂模式" class="sidebar-link">创建型：[工厂模式][1]</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#创建型：单例模式" class="sidebar-link">创建型：[单例模式][2]</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#创建型：原型模式" class="sidebar-link">创建型：原型模式</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#结构型：装饰器模式" class="sidebar-link">结构型：装饰器模式</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#结构型：适配器模式" class="sidebar-link">结构型：适配器模式</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#结构型：代理模式" class="sidebar-link">结构型：代理模式</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#行为型：策略模式" class="sidebar-link">行为型：策略模式</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#行为型：状态模式" class="sidebar-link">行为型：状态模式</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#行为型：观察者模式" class="sidebar-link">行为型：[观察者模式][3]</a></li><li class="sidebar-sub-header"><a href="/web/chapter2/#行为型：迭代器模式" class="sidebar-link">行为型：迭代器模式</a></li></ul></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JavaScript 进阶笔记</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Node 学习记录</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/web/chapter5/" class="sidebar-link">npm 学习记录</a></li><li><a href="/web/chapter6/" class="sidebar-link">性能优化</a></li><li><a href="/web/chapter7/" class="sidebar-link">数据结构与算法</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="设计模式笔记"><a href="#设计模式笔记" class="header-anchor">#</a> 设计模式笔记</h1> <ol><li><p>设计模式相当于数学公式，是前人总结出来的经验</p></li> <li><p>设计模式的核心思想 --- 封装变化： <strong>将变与不变分离，确保变化的部分灵活、不变的部分稳定。</strong></p></li> <li><p>设计模式最经典的 23 种。可分为：创建型，行为型，结构型</p></li></ol> <ul><li>创建型模式封装了创建对象过程中的变化 比如工厂模式，它做的事情就是将创建对象的过程抽离</li> <li>结构型模式封装的是对象之间组合方式的变化，目的在于灵活地表达对象间的配合与依赖关系</li> <li>行为型模式则将是对象千变万化的行为进行抽离，确保我们能够更安全、更方便地对行为进行更改。</li></ul> <p><img src="/web/assets/img/type.544b34db.jpg" alt="经典设计模式分类"></p> <h2 id="创建型：工厂模式"><a href="#创建型：工厂模式" class="header-anchor">#</a> 创建型：<a href="./%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">工厂模式</a></h2> <h2 id="创建型：单例模式"><a href="#创建型：单例模式" class="header-anchor">#</a> 创建型：<a href="./%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">单例模式</a></h2> <h2 id="创建型：原型模式"><a href="#创建型：原型模式" class="header-anchor">#</a> 创建型：原型模式</h2> <h2 id="结构型：装饰器模式"><a href="#结构型：装饰器模式" class="header-anchor">#</a> 结构型：装饰器模式</h2> <p>在不改变原对象的基础上，通过对其进行包装拓展，使原有对象可以满足用户的更复杂需求</p> <p><code>ES7</code>已经实现装饰器语法糖，所谓的装饰器模式就是这东西的用法思路，就是在不影响原有实例的功能的情况下，扩展功能。比较适合别人写的代码功能上比较复杂，然后你要再这上面添加新的功能的时候，就像外挂一样舒适。</p> <p>优秀代码库可以看看源码： https://github.com/jayphelps/core-decorators</p> <h2 id="结构型：适配器模式"><a href="#结构型：适配器模式" class="header-anchor">#</a> 结构型：适配器模式</h2> <p>主要是用来抹平差异。
+例如：在开发中我们从<code>ajax</code>切换至<code>fetch</code> 项目中会有大量的对于<code>ajax</code>封装后的调用（我想你肯定不会每个请求都写一遍<code>ajax</code>）,再不改变这些的业务代码情况下，只改变封装<code>ajax</code>的方法，抹平两个库之间的差异，这种行为的方式就叫做适配器模式。写出来的东西就叫做适配器</p> <p>相关生产实践： <code>axios</code> 在浏览器端和<code>Node</code>使用起来没有差异就是应用了适配器模式的优质实例。 核心逻辑：https://github.com/axios/axios/blob/master/lib/core/Axios.js</p> <h2 id="结构型：代理模式"><a href="#结构型：代理模式" class="header-anchor">#</a> 结构型：代理模式</h2> <p>A 不能直接访问 B，A 需要借助一个帮手来访问 B，这个帮手就是代理器。 （科学上网也是这个原理）</p> <p>常用代理类型：</p> <ul><li><p>事件代理
+这个还是比较简单的，就是一个父元素代理多个子元素事件，原理事件的冒泡</p></li> <li><p>虚拟代理
+图片的预加载，用一个虚拟元素<code>img</code>来加载真实图片地址，当图片加载完了再将占位图片元素的<code>src</code>改为真实图片<code>src</code></p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">PreLoadImage</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">imgNode</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 获取真实的DOM节点</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>imgNode <span class="token operator">=</span> imgNode<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 操作img节点的src属性</span>
+  <span class="token function">setSrc</span><span class="token punctuation">(</span><span class="token parameter">imgUrl</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>imgNode<span class="token punctuation">.</span>src <span class="token operator">=</span> imgUrl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">ProxyImage</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 占位图的 url 地址</span>
+  <span class="token keyword">static</span> <span class="token constant">LOADING_URL</span> <span class="token operator">=</span> <span class="token string">&quot;xxxxxx&quot;</span><span class="token punctuation">;</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">targetImage</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 目标Image，即PreLoadImage实例</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>targetImage <span class="token operator">=</span> targetImage<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 该方法主要操作虚拟Image，完成加载</span>
+  <span class="token function">setSrc</span><span class="token punctuation">(</span><span class="token parameter">targetUrl</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 真实img节点初始化时展示的是一个占位图</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>targetImage<span class="token punctuation">.</span><span class="token function">setSrc</span><span class="token punctuation">(</span>ProxyImage<span class="token punctuation">.</span><span class="token constant">LOADING_URL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 创建一个帮我们加载图片的虚拟Image实例</span>
+    <span class="token keyword">const</span> virtualImage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 监听目标图片加载的情况，完成时再将DOM上的真实img节点的src属性设置为目标图片的url</span>
+    virtualImage<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>targetImage<span class="token punctuation">.</span><span class="token function">setSrc</span><span class="token punctuation">(</span>targetUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置src属性，虚拟Image实例开始加载图片</span>
+    virtualImage<span class="token punctuation">.</span>src <span class="token operator">=</span> targetUrl<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li> <li><p>缓存代理
+当我们需要用到某个已经计算过的值的时候，不想再耗时进行二次计算，而是希望能从内存里去取出现成的计算结果。这种场景下，就需要一个代理来帮我们在进行计算的同时，进行计算结果的缓存了。
+代码并不是那么严谨 主要看思想</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// addAll方法会对你传入的所有参数做求和操作</span>
+<span class="token keyword">const</span> <span class="token function-variable function">addAll</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;进行了一次新计算&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> len <span class="token operator">=</span> arguments<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    result <span class="token operator">+=</span> arguments<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// 为求和方法创建代理</span>
+<span class="token keyword">const</span> proxyAddAll <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 求和结果的缓存池</span>
+  <span class="token keyword">const</span> resultCache <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 将入参转化为一个唯一的入参字符串</span>
+    <span class="token keyword">const</span> args <span class="token operator">=</span> <span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">,</span> <span class="token string">&quot;,&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 检查本次入参是否有对应的计算结果</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>args <span class="token keyword">in</span> resultCache<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 如果有，则返回缓存池里现成的结果</span>
+      <span class="token keyword">return</span> resultCache<span class="token punctuation">[</span>args<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>resultCache<span class="token punctuation">[</span>args<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">addAll</span><span class="token punctuation">(</span><span class="token operator">...</span>arguments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p>保护代理
+所谓“保护代理”，就是在访问层面做文章，在 getter 和 setter 函数里去进行校验和拦截，确保一部分变量是安全的</p></li></ul> <h2 id="行为型：策略模式"><a href="#行为型：策略模式" class="header-anchor">#</a> 行为型：策略模式</h2> <p>将函数功能逻辑单一化，用映射方案替换<code>if-else</code>判断,代码可维护性更高</p> <h2 id="行为型：状态模式"><a href="#行为型：状态模式" class="header-anchor">#</a> 行为型：状态模式</h2> <p>与策略模式不同的是，策略模式中被封装出来的功能是单一的，没有联系的，如果这些功能之间有联系，比如某一个功能需要调用被封装出来的另一个功能，这个时候就要应用状态模式，做法就是用一个类封装，将封装状态方法的对象，放在类中。</p> <h2 id="行为型：观察者模式"><a href="#行为型：观察者模式" class="header-anchor">#</a> 行为型：<a href="./%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F">观察者模式</a></h2> <h2 id="行为型：迭代器模式"><a href="#行为型：迭代器模式" class="header-anchor">#</a> 行为型：迭代器模式</h2> <blockquote><p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露该对象的内部表示。
+——《设计模式：可复用面向对象软件的基础》</p></blockquote> <p>通俗的举个例子就是说，<code>javascript</code>中的遍历数组的<code>forEach</code>无法遍历类数组，而数组是集合，类数组也是集合 同样有遍历需求，我们却要针对不同的数据结构执行不同的遍历手段。</p> <p>迭代器的定义就是遍历集合时，不需要关心集合的内部数据结构。</p> <p><code>ES6</code>中的迭代器：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token comment">// 通过调用iterator，拿到迭代器对象</span>
+<span class="token keyword">const</span> iterator <span class="token operator">=</span> arr<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>iterator<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 对迭代器对象执行next，就能逐个访问集合的成员</span>
+iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// {value: 1,done: false}</span>
+iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><code>for...of..</code>做的事情，基本等价于下面这通操作：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 通过调用iterator，拿到迭代器对象</span>
+<span class="token keyword">const</span> iterator <span class="token operator">=</span> arr<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>iterator<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 初始化一个迭代结果</span>
+<span class="token keyword">let</span> now <span class="token operator">=</span> <span class="token punctuation">{</span> done<span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 循环往外迭代成员</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>now<span class="token punctuation">.</span>done<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  now <span class="token operator">=</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>now<span class="token punctuation">.</span>done<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">现在遍历到了</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>now<span class="token punctuation">.</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>ES6</code>中的迭代器可以由生成器创建,生成器就是带<code>*</code>的函数，也就是说生成器函数返回的是一个迭代器对象</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// 编写一个迭代器生成函数</span>
+<span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">iteratorGenerator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">yield</span> <span class="token string">&quot;1号选手&quot;</span><span class="token punctuation">;</span>
+  <span class="token keyword">yield</span> <span class="token string">&quot;2号选手&quot;</span><span class="token punctuation">;</span>
+  <span class="token keyword">yield</span> <span class="token string">&quot;3号选手&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> iterator <span class="token operator">=</span> <span class="token function">iteratorGenerator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回了一个迭代器</span>
+
+iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>用 <code>ES5</code>实现一个生成迭代器对象的迭代器生成函数</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">iteratorGenerator</span><span class="token punctuation">(</span><span class="token parameter">list</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 接收参数是一个集合</span>
+  <span class="token keyword">var</span> idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// 下标</span>
+  <span class="token keyword">var</span> len <span class="token operator">=</span> list<span class="token punctuation">.</span>length<span class="token punctuation">;</span> <span class="token comment">// 长度</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">next</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 如果索引还没有超出集合长度，done为false</span>
+      <span class="token keyword">var</span> done <span class="token operator">=</span> idx <span class="token operator">&gt;=</span> len<span class="token punctuation">;</span>
+      <span class="token comment">// 如果done为false，则可以继续取值</span>
+      <span class="token keyword">var</span> val <span class="token operator">=</span> <span class="token operator">!</span>done <span class="token operator">?</span> list<span class="token punctuation">[</span>idx<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+      <span class="token comment">// 将当前值与遍历是否完毕（done）返回</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        value<span class="token operator">:</span> val<span class="token punctuation">,</span>
+        done<span class="token operator">:</span> done
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/web/chapter1/" class="prev">面试题记录</a></span> <span class="next"><a href="/web/chapter3/this%E7%AF%87/">this 相关</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/web/assets/js/app.958b9048.js" defer></script><script src="/web/assets/js/2.977cf486.js" defer></script><script src="/web/assets/js/7.8c8c7daf.js" defer></script>
+  </body>
+</html>

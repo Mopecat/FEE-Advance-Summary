@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>闭包相关 | 前端进阶之路</title>
+    <meta name="description" content="前端学习记录">
+    
+    
+    <link rel="preload" href="/web/assets/css/0.styles.3c55b503.css" as="style"><link rel="preload" href="/web/assets/js/app.958b9048.js" as="script"><link rel="preload" href="/web/assets/js/2.977cf486.js" as="script"><link rel="preload" href="/web/assets/js/17.852b2425.js" as="script"><link rel="prefetch" href="/web/assets/js/10.38f62cb2.js"><link rel="prefetch" href="/web/assets/js/11.7abd6a3f.js"><link rel="prefetch" href="/web/assets/js/12.5cb0d446.js"><link rel="prefetch" href="/web/assets/js/13.399424ab.js"><link rel="prefetch" href="/web/assets/js/14.967f7a15.js"><link rel="prefetch" href="/web/assets/js/15.95ccec89.js"><link rel="prefetch" href="/web/assets/js/16.39ba3e19.js"><link rel="prefetch" href="/web/assets/js/18.b2b8c636.js"><link rel="prefetch" href="/web/assets/js/19.c7a69949.js"><link rel="prefetch" href="/web/assets/js/20.b0792cd1.js"><link rel="prefetch" href="/web/assets/js/21.2250a474.js"><link rel="prefetch" href="/web/assets/js/22.885b5d17.js"><link rel="prefetch" href="/web/assets/js/23.301e5267.js"><link rel="prefetch" href="/web/assets/js/24.9a5dde41.js"><link rel="prefetch" href="/web/assets/js/25.eaa0a987.js"><link rel="prefetch" href="/web/assets/js/26.ddd4c3ac.js"><link rel="prefetch" href="/web/assets/js/27.86549956.js"><link rel="prefetch" href="/web/assets/js/28.06a9115f.js"><link rel="prefetch" href="/web/assets/js/29.b9beff5b.js"><link rel="prefetch" href="/web/assets/js/3.42674c08.js"><link rel="prefetch" href="/web/assets/js/4.86ae4f4a.js"><link rel="prefetch" href="/web/assets/js/5.36257110.js"><link rel="prefetch" href="/web/assets/js/6.03dd992c.js"><link rel="prefetch" href="/web/assets/js/7.8c8c7daf.js"><link rel="prefetch" href="/web/assets/js/8.00e93f98.js"><link rel="prefetch" href="/web/assets/js/9.43c29797.js">
+    <link rel="stylesheet" href="/web/assets/css/0.styles.3c55b503.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/web/" class="home-link router-link-active"><!----> <span class="site-name">前端进阶之路</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/web/chapter1/" class="sidebar-link">面试题记录</a></li><li><a href="/web/chapter2/" class="sidebar-link">设计模式学习记录</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>JavaScript 进阶笔记</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/web/chapter3/this%E7%AF%87/" class="sidebar-link">this 相关</a></li><li><a href="/web/chapter3/%E9%97%AD%E5%8C%85%E7%AF%87/" class="active sidebar-link">闭包相关</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/web/chapter3/%E9%97%AD%E5%8C%85%E7%AF%87/#闭包" class="sidebar-link">闭包</a></li><li class="sidebar-sub-header"><a href="/web/chapter3/%E9%97%AD%E5%8C%85%E7%AF%87/#内存泄漏" class="sidebar-link">内存泄漏</a></li></ul></li><li><a href="/web/chapter3/%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8%E7%AF%87/" class="sidebar-link">高阶函数</a></li><li><a href="/web/chapter3/ES6+/" class="sidebar-link">ES6+</a></li><li><a href="/web/chapter3/Promise%E7%AF%87/" class="sidebar-link">Promise</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Node 学习记录</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/web/chapter5/" class="sidebar-link">npm 学习记录</a></li><li><a href="/web/chapter6/" class="sidebar-link">性能优化</a></li><li><a href="/web/chapter7/" class="sidebar-link">数据结构与算法</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="闭包相关"><a href="#闭包相关" class="header-anchor">#</a> 闭包相关</h1> <h2 id="闭包"><a href="#闭包" class="header-anchor">#</a> 闭包</h2> <p>函数嵌套函数时，内层函数引用了外层函数作用域下的变量，并且内层函数在全局环境下可访问，就形成了闭包。</p> <h3 id="实例1："><a href="#实例1：" class="header-anchor">#</a> 实例1：</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * desc 实例1
+ */</span>
+<span class="token keyword">const</span> foo1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> v <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> v<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">foo1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">foo1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>在循环执行时，执行 <code>foo()</code>，这样引用自由变量 10 次，v 自增 10 次，最后执行 <code>foo</code> 时，得到 10。（自由变量是指没有在相关函数作用域中声明，但是使用了的变量。）</p></div> <h3 id="实例2："><a href="#实例2：" class="header-anchor">#</a> 实例2：</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * desc 实例2
+ */</span>
+<span class="token keyword">const</span> <span class="token function-variable function">foo2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> i<span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">foo2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>自由变量是i ，i在此时的值为10</p></div> <h3 id="实例3："><a href="#实例3：" class="header-anchor">#</a> 实例3：</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * desc 实例3
+ */</span>
+<span class="token keyword">var</span> fn3 <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">foo3</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">innerFoo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  fn3 <span class="token operator">=</span> innerFoo<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">bar3</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token function">fn3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">foo3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">bar3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>正常来讲，根据调用栈的知识，foo 函数执行完毕之后，其执行环境生命周期会结束，所占内存被垃圾收集器释放，上下文消失。
+但是通过 innerFoo 函数赋值给 fn，fn 是全局变量，这就导致了 foo 的变量对象 a 也被保留了下来。
+所以函数 fn 在函数 bar 内部执行时，依然可以访问这个被保留下来的变量对象，输出结果为 2。</p></div> <h3 id="实例4："><a href="#实例4：" class="header-anchor">#</a> 实例4：</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * desc 实例4
+ */</span>
+<span class="token keyword">var</span> fn4 <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">foo4</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">innerFoo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  fn4 <span class="token operator">=</span> innerFoo<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">bar4</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> c <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+  <span class="token function">fn4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">foo4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">bar4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>在 <code>bar</code> 中执行 <code>fn()</code> 时，<code>fn()</code> 已经被复制为 <code>innerFoo</code>，变量 <code>c</code> 并不在其作用域链上，<code>c</code> 只是 <code>bar</code> 函数的内部变量。因此报错 <code>ReferenceError: c is not defined</code></p></div> <h3 id="如何利用闭包实现单例模式"><a href="#如何利用闭包实现单例模式" class="header-anchor">#</a> 如何利用闭包实现单例模式?</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * 如何利用闭包实现单例模式???
+ */</span>
+<span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">&quot;lucas&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> getSingleInstance <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> singleInstance<span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>singleInstance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> singleInstance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>singleInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> instance1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">getSingleInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> instance2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">getSingleInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>事实上，我们有 <code>instance1 === instance2</code>。因为借助闭包变量 <code>singleInstance，instance1</code> 和 <code>instance2</code> 是同一引用的（<code>singleInstance</code>），这正是单例模式的体现。</p></div> <h2 id="内存泄漏"><a href="#内存泄漏" class="header-anchor">#</a> 内存泄漏</h2> <p>内存泄漏是指内存空间明明已经不再被使用，但由于某种原因并没有被释放的现象。内存泄漏危害却非常直观：它会直接导致程序运行缓慢，甚至崩溃。</p> <h3 id="内存泄漏实例1"><a href="#内存泄漏实例1" class="header-anchor">#</a> 内存泄漏实例1:</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * desc 内存泄漏实例1
+ */</span>
+<span class="token keyword">let</span> el <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;el&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+el<span class="token punctuation">.</span>class <span class="token operator">=</span> <span class="token string">&quot;el-class&quot;</span><span class="token punctuation">;</span>
+<span class="token comment">// 移除 element 节点 调用该方法后再次访问el变量仍然可以访问到元素节点el</span>
+<span class="token keyword">function</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  el<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="内存泄漏实例2"><a href="#内存泄漏实例2" class="header-anchor">#</a> 内存泄漏实例2</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;element&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">'&lt;button id=&quot;button&quot;&gt;点击&lt;/button&gt;'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> button <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;button&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+button<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;click&quot;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>这段代码执行后，因为 <code>element.innerHTML = ''</code>，<code>button</code> 元素已经从 <code>DOM</code> 中移除了，
+但是由于其事件处理句柄还在，所以依然无法被垃圾回收。我们还需要增加 <code>removeEventListener</code>，防止内存泄漏。</p></div> <h3 id="内存泄漏实例3"><a href="#内存泄漏实例3" class="header-anchor">#</a> 内存泄漏实例3</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">&quot;lucas&quot;</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>这段代码由于 <code>window.setInterval</code> 的存在，导致 <code>name</code> 内存空间始终无法被释放，如果不是业务要求的话，一定要记得在合适的时机使用 <code>clearInterval</code> 进行清理。</p></div> <h3 id="例1："><a href="#例1：" class="header-anchor">#</a> 例1：</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">numGenerator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  num<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> getNum <span class="token operator">=</span> <span class="token function">numGenerator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">getNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">createNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> div<span class="token punctuation">;</span>
+  <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> frag <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createDocumentFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&quot;div&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    div<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">createTextNode</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    frag<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>div<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>frag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">badCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  array<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">...</span><span class="token function">Array</span><span class="token punctuation">(</span><span class="token number">100000</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">createNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span>badCode<span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// badCode();</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">解析：</p> <p>这个简单的闭包例子中，<code>numGenerator</code> 创建了一个变量 <code>num</code>，返回打印 <code>num</code> 值的匿名函数，这个函数引用了变量 <code>num</code>，使得外部可以通过调用 <code>getNum</code> 方法访问到变量 <code>num</code>，
+因此在 <code>numGenerator</code> 执行完毕后，即相关调用栈出栈后，变量 <code>num</code> 不会消失，仍然有机会被外界访问。可借此方法来调试浏览器来查看页面的性能瓶颈</p></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/web/assets/js/app.958b9048.js" defer></script><script src="/web/assets/js/2.977cf486.js" defer></script><script src="/web/assets/js/17.852b2425.js" defer></script>
+  </body>
+</html>

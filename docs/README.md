@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /ts-logo.png
+heroImage: /timg.jpeg
 actionText: 开始学习 →
 actionLink: /chapter1/
 ---
