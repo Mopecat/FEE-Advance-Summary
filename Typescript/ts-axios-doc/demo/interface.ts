@@ -105,3 +105,55 @@ let digital = createClock(DigitalClock, 12, 17);
 let analog = createClock(AnalogClock, 7, 32);
 
 // 接口继承
+interface Shape {
+  color: string;
+}
+
+interface PenStroke {
+  penWidth: number;
+}
+interface Square extends Shape, PenStroke {
+  sideLength: number;
+}
+
+let square = {} as Square;
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 10;
+
+// 混合类型
+interface Counter {
+  // 可以是一个函数也可以是一个对象
+  (start: number): string;
+  interval: number;
+  reset(): void;
+}
+
+function getCount(): Counter {
+  let counter = function(start: number) {} as Counter;
+  counter.interval = 123;
+  counter.reset = function() {};
+  return counter;
+}
+let counter = getCount();
+counter(10);
+counter.interval;
+counter.reset();
+
+// 接口继承类
+class Control {
+  private state: any;
+}
+
+interface SelectableControl extends Control {
+  select();
+}
+
+class Button extends Control implements SelectableControl {
+  select() {}
+}
+
+// 由于没有继承control所以ImageC上没有私有属性state 所以实现SelectableControl会报错
+class ImageC implements SelectableControl {
+  select();
+}

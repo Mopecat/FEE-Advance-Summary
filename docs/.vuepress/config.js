@@ -38,7 +38,7 @@ module.exports = {
           "chapter4/http/http-1",
           "chapter4/http/http-2",
           "chapter4/http/http-3",
-          "chapter4/koa"
+          "chapter4/koa/"
         ]
       },
       {
