@@ -39,7 +39,7 @@ Promise.reject()
 **既能捕获同步异常也能捕获异步异常**
 
 ```javascript
-// 写一个方法 一个方法里能会throw err的同步异常，也可能是返回promise的异步异常，同步的可以用try-catch捕获，promise的要用then/catch捕获，但是我们不确定这个函数是同步错误还是异步错误，所以需要，Promise.try这个方法。下面你是实现方式
+// 写一个方法 一个方法里可能会throw err的同步异常，也可能是返回promise的异步异常，同步的可以用try-catch捕获，promise的要用then/catch捕获，但是我们不确定这个函数是同步错误还是异步错误，所以需要，Promise.try这个方法。下面你是实现方式
 function fn() {
   // throw new Error('同步的错误')
   return new Promise((resolve, reject) => {
@@ -111,24 +111,28 @@ let p1 = p
 6. **如何放弃某个 `promise` 执行结果**
 
 ```javascript
-function wrap(p1){
+function wrap(p1) {
   let fail = null;
-  let p2 = new Promise((resolve,reject)=>{
-    fail = reject // 先将p2的失败方法暴露出来
-  })
-  let p = Promise.race([p2,p1]); // race方法返回的也是一个promise
+  let p2 = new Promise((resolve, reject) => {
+    fail = reject; // 先将p2的失败方法暴露出来
+  });
+  let p = Promise.race([p2, p1]); // race方法返回的也是一个promise
   p.abort = fail;
-  return p
+  return p;
 }
-let p = wrap(new Promise((resolve,reject)=>{
-  setTimeout(()=>{
-    resolve('啥都行 反正放弃这个结果了')
-  },3000)
-})
-p.abort('调用abort放弃结果')
-p.then(data=>{
-  console.log(data)
-}).catch(err=>{console.log(err)})
+let p = wrap(
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("啥都行 反正放弃这个结果了");
+    }, 3000);
+  })
+);
+p.abort("调用abort放弃结果");
+p.then(data => {
+  console.log(data);
+}).catch(err => {
+  console.log(err);
+});
 ```
 
 ## reduce 相关
@@ -588,3 +592,32 @@ EventEmitter.prototype.off = function(eventName, callback) {
 };
 module.exports = EventEmitter;
 ```
+
+## 虚拟 DOM
+
+- 什么是虚拟 DOM
+
+  用 js 模拟一颗 DOM 树，放在浏览器的内存中，当需要变更时，虚拟 DOM 进行 diff 算法进行新旧虚拟 DOM 的对比，将变更放入到队列中。反应到实际的 DOM 上，减少 DOM 的操作。
+
+- 为什么用虚拟 DOM
+
+  - 保证性能下限
+
+    不管数据变化多少，尽管不能保证每次重绘的性能都是最优，但是能让每次的重绘的性能都能够接受，就是保证下限
+
+  - 不需要手动优化的情况下，我依然可以给你提供过得去的性能
+
+    这是性能 与 可维护性的取舍，诚然没有任何框架可以比手动优化 DOM 更快，因为框架的 DOM 操作需要应对任何上层 API 产生的操作，所以他的实现必须是普适性的，但是构建一个应用时不可能每一个地方都要去手动优化。
+
+  - 跨平台: 因为是 js 对象
+
+- 虚拟 DOM 的实现
+  1. 用 JavaScript 对象结构表示 DOM 树的结构；然后用这个树构建一个真正的 DOM 树，插到文档当中
+  2. 当状态变更的时候，重新构造一棵新的对象树。然后用新的树和旧的树进行比较，记录两棵树差异
+  3. 把 2 所记录的差异应用到步骤 1 所构建的真正的 DOM 树上，视图就更新了
+
+## link 与 @import 的区别
+
+1. `link`是标签除了能加载`css`还能加载很多东西 `@import` 只能在`css`文件中使用
+2. `@import`会等待页面全部下载完了再加载，所以会导致刚打开页面时用`@import`引入的样式的页面没有样式，也就是会闪烁，网速不好时尤为明显
+3. `@import` 有兼容性问题 `css2.1`版本之后才支持
