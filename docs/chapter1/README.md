@@ -39,7 +39,7 @@ Promise.reject()
 **既能捕获同步异常也能捕获异步异常**
 
 ```javascript
-// 写一个方法 一个方法里能会throw err的同步异常，也可能是返回promise的异步异常，同步的可以用try-catch捕获，promise的要用then/catch捕获，但是我们不确定这个函数是同步错误还是异步错误，所以需要，Promise.try这个方法。下面你是实现方式
+// 写一个方法 一个方法里可能会throw err的同步异常，也可能是返回promise的异步异常，同步的可以用try-catch捕获，promise的要用then/catch捕获，但是我们不确定这个函数是同步错误还是异步错误，所以需要，Promise.try这个方法。下面你是实现方式
 function fn() {
   // throw new Error('同步的错误')
   return new Promise((resolve, reject) => {
@@ -111,24 +111,28 @@ let p1 = p
 6. **如何放弃某个 `promise` 执行结果**
 
 ```javascript
-function wrap(p1){
+function wrap(p1) {
   let fail = null;
-  let p2 = new Promise((resolve,reject)=>{
-    fail = reject // 先将p2的失败方法暴露出来
-  })
-  let p = Promise.race([p2,p1]); // race方法返回的也是一个promise
+  let p2 = new Promise((resolve, reject) => {
+    fail = reject; // 先将p2的失败方法暴露出来
+  });
+  let p = Promise.race([p2, p1]); // race方法返回的也是一个promise
   p.abort = fail;
-  return p
+  return p;
 }
-let p = wrap(new Promise((resolve,reject)=>{
-  setTimeout(()=>{
-    resolve('啥都行 反正放弃这个结果了')
-  },3000)
-})
-p.abort('调用abort放弃结果')
-p.then(data=>{
-  console.log(data)
-}).catch(err=>{console.log(err)})
+let p = wrap(
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("啥都行 反正放弃这个结果了");
+    }, 3000);
+  })
+);
+p.abort("调用abort放弃结果");
+p.then(data => {
+  console.log(data);
+}).catch(err => {
+  console.log(err);
+});
 ```
 
 ## reduce 相关
