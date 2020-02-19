@@ -59,6 +59,6 @@ class Observer {
 
 - `Vue`数据双向绑定（响应式系统）的实现原理
 
-- 实现一个 `Event Bus/ Event Emitter` [代码][1]
+- 实现一个 `Event Bus/ Event Emitter`
 
-[1]: ../../Node/core/eventsCode.js
+<<< @/docs/chapter4/core/eventsCode.js
