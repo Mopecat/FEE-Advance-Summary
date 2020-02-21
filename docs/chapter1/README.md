@@ -621,3 +621,42 @@ module.exports = EventEmitter;
 1. `link`是标签除了能加载`css`还能加载很多东西 `@import` 只能在`css`文件中使用
 2. `@import`会等待页面全部下载完了再加载，所以会导致刚打开页面时用`@import`引入的样式的页面没有样式，也就是会闪烁，网速不好时尤为明显
 3. `@import` 有兼容性问题 `css2.1`版本之后才支持
+
+## 跨域
+
+- `jsonp`
+  就是将后端的接口地址作为一个`script`标签引入，且这个接口的返回内容是通过调用本地页面上的方法，传递参数来获取后台的数据，转化为代码就是：
+
+  ```javascript
+  // 我的页面里有一个这样的函数
+  function showjson(json) {
+    alert(json.url);
+  }
+  ```
+
+  ```php
+  // 这是后端的一个接口 直接返回一个方法调用，并传递了参数
+  < ?php
+  //这里是php页面里,回调showjson方法,这里的方法必须和上面定义的本地页面中的回调方法一致
+  echo 'showjson({"url":"http://www.bejson.com"})';
+  ?>
+  ```
+
+  然后在页面里面是这样的结构
+
+  ```html
+  <script type="text/javascript">
+    function showjson(json) {
+      alert(json.url);
+    }
+  </script>
+  <!-- 按照上面写的php代码其实不用传参数，但是传了函数名可以直接给后台使用拼接，减少约定 -->
+  <script
+    type="text/javascript"
+    src="http://xxxx.php?callback=showjson"
+  ></script>
+  ```
+
+## cookie 的密文
+
+用 `https` 代替 `http` 传输，抓取的就是密文了
