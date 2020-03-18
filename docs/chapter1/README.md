@@ -660,3 +660,8 @@ module.exports = EventEmitter;
 ## cookie 的密文
 
 用 `https` 代替 `http` 传输，抓取的就是密文了
+
+## 为什么 React 和 Vue 都在用 functionComponent 代替 ClassComponent
+
+（不是面试题，最近学习 react 发现的问题，暂时没有更好的归类，先放在这里）
+因为函数组件再每次渲染的时候运行函数，调用完就被立即释放销毁，没有也不需要维护实例，减少了内存开销，也没有副作用。
