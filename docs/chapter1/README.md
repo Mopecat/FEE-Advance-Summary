@@ -540,6 +540,9 @@ console.log(deepClone(objExample));
 ## 观察者模式面试题
 
 - `Vue`数据双向绑定（响应式系统）的实现原理
+
+写了一个简单版本： https://github.com/Mopecat/MyVue
+
 - 实现一个 `Event Bus/ Event Emitter`
 
 ```js
