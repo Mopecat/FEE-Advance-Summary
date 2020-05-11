@@ -7,16 +7,14 @@
 ```javascript
 Promise.prototype.finally = function(callback) {
   return this.then(
-    val => {
+    (val) => {
       // 等待finally中的函数执行完毕，继续执行，finally函数可能返还一个promise用Promise.resolve等待返回的promise执行完
-      return Promise.resolve(callback().then(() => val));
+      return Promise.resolve(callback()).then(() => val);
     },
-    err => {
-      return Promise.resolve(
-        callback().then(() => {
-          throw err;
-        })
-      );
+    (err) => {
+      return Promise.resolve(callback()).then(() => {
+        throw err;
+      });
     }
   );
 };
@@ -29,7 +27,7 @@ Promise.reject()
       }, 1000);
     });
   })
-  .catch(e => {
+  .catch((e) => {
     console.log(e);
   });
 ```
@@ -54,7 +52,7 @@ Promise.try = function(callback) {
     return Promise.resolve(callback()).then((resolve, reject));
   });
 };
-Promise.try(fn).catch(err => {
+Promise.try(fn).catch((err) => {
   console.log(err);
 });
 ```
@@ -80,7 +78,7 @@ Promise.race = function(promises) {
     }
   });
 };
-Promise.race([p1, p2]).then(data => {
+Promise.race([p1, p2]).then((data) => {
   console.log(data);
 });
 ```
@@ -128,9 +126,9 @@ let p = wrap(
   })
 );
 p.abort("调用abort放弃结果");
-p.then(data => {
+p.then((data) => {
   console.log(data);
-}).catch(err => {
+}).catch((err) => {
   console.log(err);
 });
 ```
@@ -569,7 +567,7 @@ EventEmitter.prototype.on = function(eventName, callback) {
 
 EventEmitter.prototype.emit = function(eventName, ...args) {
   if (this._events[eventName]) {
-    this._events[eventName].forEach(fn => {
+    this._events[eventName].forEach((fn) => {
       fn(...args);
     });
   }
@@ -587,7 +585,7 @@ EventEmitter.prototype.once = function(eventName, callback) {
 };
 EventEmitter.prototype.off = function(eventName, callback) {
   if (this._events[eventName]) {
-    this._events[eventName] = this._events[eventName].filter(fn => {
+    this._events[eventName] = this._events[eventName].filter((fn) => {
       // 返回false的会被过滤掉
       return fn !== callback && fn.l !== callback;
     });
