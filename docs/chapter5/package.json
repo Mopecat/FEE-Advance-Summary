@@ -13,7 +13,7 @@
   "author": "Feely",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mime": "^2.4.4",
     "vue": "^2.6.10"
   },
