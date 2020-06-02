@@ -48,6 +48,11 @@ module.exports = {
         path: "chapter5/",
       },
       {
+        title: "Vue",
+        collapsable: true,
+        path: "chapter8/",
+      },
+      {
         title: "性能优化",
         collapsable: true,
         path: "chapter6/",
