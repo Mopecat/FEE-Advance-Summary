@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-size: 100px;
+        color: #e05a43;
+        font-weight: 600;
+        text-align: center;
+        padding-top: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      fetch("http://localhost:3000/api", {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          document.body.innerText = res.name;
+        });
+    </script>
+  </body>
+</html>
