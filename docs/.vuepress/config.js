@@ -9,6 +9,11 @@ module.exports = {
     nav: [],
     sidebar: [
       {
+        title: "CSS",
+        collapsable: true,
+        path: "chapter9/",
+      },
+      {
         title: "面试题记录",
         collapsable: true,
         path: "chapter1/",
