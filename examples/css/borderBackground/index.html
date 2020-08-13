@@ -1,55 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>半透明边框</title>
-    <style>
-      body {
-        padding-left: 20px;
-        /* background: tan; */
-        font-size: 12px;
-      }
 
-      div {
-        margin: 20px 0;
-        height: 200px;
-        width: 200px;
-      }
-      .dashed {
-        border: 10px dashed #666;
-        background: green;
-      }
-      .transparent {
-        border: 10px solid hsla(0, 0%, 100%, 0.5);
-        background: white;
-        background-clip: padding-box;
-      }
-      .vintag-envelope {
-        padding: 1em;
-        border: 1em solid transparent;
-        background: linear-gradient(white, white) padding-box,
-          repeating-linear-gradient(
-              -45deg,
-              red 0,
-              red 12.5%,
-              transparent 0,
-              transparent 25%,
-              #58a 0,
-              #58a 37.5%,
-              transparent 0,
-              transparent 50%
-            )
-            0 /5em 5em;
-      }
-    </style>
-  </head>
-  <body>
-    <h3>虚线（背景透出）例子</h3>
-    <div class="dashed"></div>
-    <h3>半透明边框</h3>
-    <div class="transparent"></div>
-    <h3>老式信封边框</h3>
-    <div class="vintag-envelope"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>背景和边框</title>
+  <style>
+    body {
+      padding-left: 20px;
+      /* background: tan; */
+      font-size: 12px;
+    }
+
+    div {
+      margin: 20px 0;
+      height: 200px;
+      width: 200px;
+    }
+
+    .dashed {
+      border: 10px dashed #666;
+      background: green;
+    }
+
+    .transparent {
+      border: 10px solid hsla(0, 0%, 100%, 0.5);
+      background: white;
+      background-clip: padding-box;
+    }
+
+    .tiaowen {
+      background-image: repeating-linear-gradient(45deg, green 0, green 10%, transparent 0, transparent 20%, red 0, red 30%, transparent 0, transparent 40%, yellow 0, yellow 50%, transparent 0, transparent 60%);
+    }
+
+    .vintag-envelope {
+      padding: 1em;
+      border: 1em solid transparent;
+      background: linear-gradient(white, white) padding-box,
+        repeating-linear-gradient(-45deg,
+          red 0,
+          red 12.5%,
+          transparent 0,
+          transparent 25%,
+          #58a 0,
+          #58a 37.5%,
+          transparent 0,
+          transparent 50%) 0 /5em 5em;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>虚线（背景透出）例子</h3>
+  <div class="dashed"></div>
+  <h3>半透明边框</h3>
+  <div class="transparent"></div>
+  <h3>条纹背景</h3>
+  <div class="tiaowen"></div>
+  <h3>老式信封边框</h3>
+  <div class="vintag-envelope"></div>
+</body>
+
 </html>
