@@ -9,7 +9,7 @@
 
 高阶函数示例：
 
-<<< @/docs/chapter3/函数应用篇/1.高阶函数.js
+<<< @/docs/chapter3/funtion/1.高阶函数.js
 
 ## 函数柯里化
 
@@ -17,7 +17,7 @@
 
 函数柯里化实例:
 
-<<< @/docs/chapter3/函数应用篇/3.函数柯里化.js
+<<< @/docs/chapter3/funtion/3.函数柯里化.js
 
 ## AOP (装饰模式) 将函数进行包装 （before,after）
 
@@ -25,8 +25,7 @@ AOP(面向切面编程)的主要作用是把一些跟核心业务逻辑模块无
 
 `after`实现：
 
-<<< @/docs/chapter3/函数应用篇/4.after.js
-
+<<< @/docs/chapter3/funtion/4.after.js
 
 ## 发布订阅模式
 
@@ -34,13 +33,14 @@ AOP(面向切面编程)的主要作用是把一些跟核心业务逻辑模块无
 预先定义好一件事，等这件事发生的时候在执行
 发布和订阅之间是没有关系的
 
-发布订阅模式的应用 **react 事务的封装** 
+发布订阅模式的应用 **react 事务的封装**
 
-<<< @/docs/chapter3/函数应用篇/2.react事务的封装.js
+<<< @/docs/chapter3/funtion/2.react 事务的封装.js
+
 ## 观察者模式
 
 - 观察者和被观察者是有联系的
 - 被观察者里面存了观察者
 - 观察者模式包含了发布订阅模式
 
-<<< @/docs/chapter3/函数应用篇/观察者模式.js
+<<< @/docs/chapter3/funtion/观察者模式.js

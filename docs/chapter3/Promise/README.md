@@ -30,10 +30,10 @@ let p = new Promise((resolve, reject) => {
   throw new Error("失败"); //如果抛出异常也会执行成功
 });
 p.then(
-  data => {
+  (data) => {
     console.log(data);
   },
-  err => {
+  (err) => {
     console.log(err);
   }
 );
@@ -45,39 +45,39 @@ let p2 = new Promise((resolve, reject) => {
 });
 // 订阅多个then方法
 p2.then(
-  data => {
+  (data) => {
     console.log(data);
   },
-  err => {
+  (err) => {
     console.log(err);
   }
 );
 p2.then(
-  data => {
+  (data) => {
     console.log(data);
   },
-  err => {
+  (err) => {
     console.log(err);
   }
 );
-
 ```
+
 ## `promise` 基础用法的实现
 
-<<< @/docs/chapter3/Promise篇/promise的基本实现.js
+<<< @/docs/chapter3/Promise/promise 的基本实现.js
 
 ## `promise` 链式调用用法实例
 
-<<< @/docs/chapter3/Promise篇/promise的链式调用的用法.js
+<<< @/docs/chapter3/Promise/promise 的链式调用的用法.js
 
 ## `promise` 链式调用实现
 
-<<< @/docs/chapter3/Promise篇/promise的链式调用实现.js
+<<< @/docs/chapter3/Promise/promise 的链式调用实现.js
 
 ## `promise/A+`验证通过的源码
 
-<<< @/docs/chapter3/Promise篇/promise.js
+<<< @/docs/chapter3/Promise/promise.js
 
 ## `promise.all` 的实现
 
-<<< @/docs/chapter3/Promise篇/promise-all.js
+<<< @/docs/chapter3/Promise/promise-all.js
