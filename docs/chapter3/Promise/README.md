@@ -64,15 +64,15 @@ p2.then(
 
 ## `promise` 基础用法的实现
 
-<<< @/docs/chapter3/Promise/promise 的基本实现.js
+<<< @/docs/chapter3/Promise/promise的基本实现.js
 
 ## `promise` 链式调用用法实例
 
-<<< @/docs/chapter3/Promise/promise 的链式调用的用法.js
+<<< @/docs/chapter3/Promise/promise的链式调用的用法.js
 
 ## `promise` 链式调用实现
 
-<<< @/docs/chapter3/Promise/promise 的链式调用实现.js
+<<< @/docs/chapter3/Promise/promise的链式调用实现.js
 
 ## `promise/A+`验证通过的源码
 

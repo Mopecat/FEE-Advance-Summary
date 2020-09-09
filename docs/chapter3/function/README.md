@@ -35,7 +35,7 @@ AOP(面向切面编程)的主要作用是把一些跟核心业务逻辑模块无
 
 发布订阅模式的应用 **react 事务的封装**
 
-<<< @/docs/chapter3/funtion/2.react 事务的封装.js
+<<< @/docs/chapter3/funtion/2.react事务的封装.js
 
 ## 观察者模式
 
