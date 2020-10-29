@@ -32,7 +32,11 @@ class HttpServer {
   gzip(absPath, statObj, req, res) {
     let encoding = req.headers["accept-encoding"];
     if (encoding) {
-      if (encoding.match(/gzip/)) {
+      if (encoding.match(/br/)) { 
+        res.setHeader("Content-Encoding", "br");
+        // 返回br转化流
+        return zlib.createBrotliCompress();
+      }else if (encoding.match(/gzip/)) {
         // 设置响应头部为gzip压缩格式
         res.setHeader("Content-Encoding", "gzip");
         // 返回gzip转化流
