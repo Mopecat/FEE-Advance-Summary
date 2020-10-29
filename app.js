@@ -33,6 +33,7 @@ class HttpServer {
     let encoding = req.headers["accept-encoding"];
     if (encoding) {
       if (encoding.match(/br/)) { 
+        res.setHeader('jiushishi','xingbuxing')
         res.setHeader("Content-Encoding", "br");
         // 返回br转化流
         return zlib.createBrotliCompress();
