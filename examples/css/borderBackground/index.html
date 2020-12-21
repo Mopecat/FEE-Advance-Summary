@@ -7,17 +7,28 @@
   <title>背景和边框</title>
   <style>
     body {
-      padding-left: 20px;
+      padding:0 20px;
       /* background: tan; */
       font-size: 12px;
     }
 
-    div {
-      margin: 20px 0;
-      height: 200px;
-      width: 200px;
+    .flex {
+      display: flex;
+      flex-wrap:wrap;
+      justify-content: space-between;
+      width: 100%;
+      margin:0;
+      height: auto;
     }
-
+    .block{
+      flex-direction: row;
+      width:20%;
+    }
+    .block div {
+      margin: 20px 20px 20px 0;
+      height: 200px;
+      width: 90%;
+    }
     .dashed {
       border: 10px dashed #666;
       background: green;
@@ -29,6 +40,15 @@
       background-clip: padding-box;
     }
 
+    .multiple-border{
+      background: yellowgreen;
+      box-shadow: 0 0 0 10px #655,0 0 0 15px deeppink;
+    }
+    .multiple-border2{
+      background: #655;
+      outline: 1px dashed #ffffff;
+      outline-offset: -10px;
+    }
     .tiaowen {
       background-image: repeating-linear-gradient(45deg, green 0, green 10%, transparent 0, transparent 20%, red 0, red 30%, transparent 0, transparent 40%, yellow 0, yellow 50%, transparent 0, transparent 60%);
     }
@@ -51,14 +71,33 @@
 </head>
 
 <body>
-  <h3>虚线（背景透出）例子</h3>
-  <div class="dashed"></div>
-  <h3>半透明边框</h3>
-  <div class="transparent"></div>
-  <h3>条纹背景</h3>
-  <div class="tiaowen"></div>
-  <h3>老式信封边框</h3>
-  <div class="vintag-envelope"></div>
+  <div class="flex">
+    <div class="block">
+      <h3 id="dashed">虚线（背景透出）例子</h3>
+      <div class="dashed"></div>
+    </div>
+    <div class="block">
+      <h3 id="半透明边框">半透明边框（可在body上添加背景颜色）</h3>
+      <div class="transparent"></div>
+    </div>
+    <div class="block">
+      <h3 id="多重边框">多重边框</h3>
+      <div class="multiple-border"></div>
+    </div>
+    <div class="block">
+      <h3 id="多重边框">多重边框（outline）</h3>
+      <div class="multiple-border2"></div>
+    </div>
+    <div class="block">
+      <h3 id="条纹背景">条纹背景</h3>
+      <div class="tiaowen"></div>
+    </div>
+    <div class="block">
+      <h3 id="老式信封边框">老式信封边框</h3>
+      <div class="vintag-envelope"></div>
+    </div>
+    
+  </div>
 </body>
 
 </html>

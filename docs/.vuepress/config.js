@@ -12,6 +12,9 @@ module.exports = {
         title: "CSS",
         collapsable: true,
         path: "chapter9/",
+        children: [
+          "chapter9/borderBackground/",
+        ],
       },
       {
         title: "面试题记录",
