@@ -99,6 +99,6 @@ class HttpServer {
 
 let hs = new HttpServer();
 
-hs.start(8080, function() {
+hs.start(80, function() {
   console.log("server is start 8080");
 });
