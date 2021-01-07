@@ -54,7 +54,9 @@ class HttpServer {
   // 处理请求
   async handleServer(req, res) {
     let { pathname } = url.parse(req.url, true);
+    if(pathname === '/') pathname = '/web'
     let absPath = path.join(__dirname, pathname);
+    console.log(pathname)
     try {
       let statObj = await fs.stat(absPath);
       this.sendFile(statObj, absPath, req, res);
@@ -100,5 +102,5 @@ class HttpServer {
 let hs = new HttpServer();
 
 hs.start(80, function() {
-  console.log("server is start 8080");
+  console.log("server is start 80");
 });
