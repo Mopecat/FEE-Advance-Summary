@@ -55,9 +55,6 @@ class HttpServer {
   async handleServer(req, res) {
     let { pathname } = url.parse(req.url, true);
     if (pathname === '/') pathname = '/web'
-    if (/(.ico)$/g.test(pathname)) { 
-      pathname = '/web' + pathname
-    }
     let absPath = path.join(__dirname, pathname);
     try {
       let statObj = await fs.stat(absPath);
