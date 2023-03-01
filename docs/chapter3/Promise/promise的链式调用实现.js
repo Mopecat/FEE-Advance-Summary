@@ -20,11 +20,11 @@ const resolvePromise = (promise2, x, resolve, reject) => {
       let then = x.then; // 先判断x里面是不是有then 如果有错误就抛出错误
       if (typeof then === "function") {
         // 这里就确定是promise了
-        // x.then(()=>{},()=>{}) 这样会再次调用了一下x.then 会导致一些极端情况的问题
+        // x.then(()=>{},()=>{}) 这样会再次调用了一下x.then 会导致一些极端情况的问题，比如含有then属性的对象
         then.call(
           x,
           y => {
-            if (called) return; // 防止多次调用
+            if (called) return; // 防止多次调用 状态只能改变一次
             called = true;
             // y有可能还是一个promise 所以递归解析 直到可以解析为一个普通值了
             resolvePromise(promise2, y, resolve, reject);

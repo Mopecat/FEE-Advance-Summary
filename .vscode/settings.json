@@ -1,13 +1,11 @@
 {
   // prettier
-  "prettier.disableLanguages": ["vue"],
   // "prettier.disableLanguages": [],
   "prettier.ignorePath": ".prettierignore",
   // vetur
   "vetur.validation.template": true,
   // html格式化
   "vetur.format.defaultFormatter.html": "prettyhtml",
-  "javascript.implicitProjectConfig.experimentalDecorators": true,
   // html css support
   "css.fileExtensions": ["css", "scss"],
   "editor.tabSize": 2,
@@ -15,19 +13,6 @@
   "editor.formatOnSave": true,
   // eslint开启
   "eslint.enable": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "html",
-      "autoFix": true
-    },
-    {
-      "language": "vue",
-      "autoFix": true
-    }
-  ],
-  "eslint.autoFixOnSave": true,
   "eslint.options": {
     // List of file extensions to activate eslint
     "extensions": [".html", ".js", ".vue", ".jsx"]
