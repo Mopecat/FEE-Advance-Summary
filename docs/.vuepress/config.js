@@ -1,9 +1,7 @@
 module.exports = {
   base: "/web/",
   dest: "web",
-  head: [
-    ['link', { rel: 'shortcut icon', href: '/favicon.ico' }]
-  ],
+  head: [["link", { rel: "shortcut icon", href: "/favicon.ico" }]],
   title: "前端进阶之路",
   description: "前端学习记录",
   themeConfig: {
@@ -14,9 +12,7 @@ module.exports = {
       {
         title: "CSS",
         collapsable: true,
-        children: [
-          "chapter9/borderBackground/",
-        ],
+        children: ["chapter9/borderBackground/", "chapter9/bfc/"],
       },
       {
         title: "面试题记录",
